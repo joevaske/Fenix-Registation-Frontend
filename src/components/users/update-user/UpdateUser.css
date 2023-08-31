@@ -1,0 +1,10 @@
+.update-user {
+  max-width: 992px;
+  margin: 50px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .update-user {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,10 @@
+.create-user {
+  max-width: 992px;
+  margin: 50px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .create-user {
+    padding: 10px;
+  }
+}

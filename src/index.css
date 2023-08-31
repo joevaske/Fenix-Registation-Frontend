@@ -1,13 +1,104 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --dustStorm: #ddd1c7;
+  --silver: #c2cfb2;
+  --darkSeaGreen: #8db580;
+  --mummysTomb: #7e8987;
+  --independance: #4b4a67;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+html {
+  font-family: 'Open Sans', serif;
+  background-color: white;
+  color: #000;
+}
+
+h1 {
+  font-size: 34px;
+  font-weight: 400;
+}
+h2 {
+  font-size: 28px;
+  font-weight: 400;
+}
+h3 {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+/* Buttons  */
+
+.btn {
+  background-color: var(--darkSeaGreen);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.btn:hover,
+.btn:active {
+  opacity: 0.7;
+}
+.btn-warning {
+  background-color: var(--dustStorm);
+  border: 1px solid var(--mummysTomb);
+}
+.btn-action {
+  background-color: var(--independance);
+}
+
+/* Forms  */
+form .form-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  font-size: 18px;
+  color: var(--independance);
+}
+form label {
+  min-width: 150px;
+  text-align: right;
+  padding: 10px;
+  color: var(--mummysTomb);
+}
+
+.form-button {
+  text-align: right;
+  margin: 40px 0;
+}
+
+@media screen and (max-width: 768px) {
+  form .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  form label {
+    min-width: 150px;
+    text-align: left;
+    padding: 7px 2px;
+  }
 }

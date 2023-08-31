@@ -1,0 +1,41 @@
+.show-users {
+  position: relative;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.users {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+.users th {
+  text-align: left;
+  padding: 5px 7px;
+}
+
+.users tr {
+  border-bottom: 1px solid gray;
+}
+.users td {
+  padding: 10px 10px;
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: white;
+}
+.first-col {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  left: 0px;
+}
+
+.second-col {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  left: 100px;
+}
