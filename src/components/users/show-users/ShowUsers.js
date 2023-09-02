@@ -59,7 +59,7 @@ const ShowUsers = () => {
               <td>
                 <Link
                   className='btn btn-action'
-                  to={`update-user/${user.user_id}`}
+                  to={`/update-user/${user.user_id}`}
                 >
                   Edit
                 </Link>

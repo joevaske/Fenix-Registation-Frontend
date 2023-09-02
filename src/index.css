@@ -102,3 +102,14 @@ form label {
     padding: 7px 2px;
   }
 }
+
+/*  Error message */
+
+.error-message {
+  color: var(--darkSeaGreen);
+  padding: 10px;
+  border: 1px solid var(--dustStorm);
+  margin: 10px 0;
+  border-radius: 4px;
+  width: auto;
+}

@@ -13,6 +13,7 @@
   color: white;
   font-size: 28px;
 }
+
 .main-menu nav ul {
   display: flex;
   justify-content: space-between;
@@ -25,6 +26,25 @@
   text-decoration: none;
   color: white;
   padding: 10px 15px;
+}
+
+.main-menu .user {
+  display: flex;
+}
+.main-menu .user span {
+  display: block;
+  padding: 8px 10px;
+
+  font-size: 14px;
+  color: var(--dustStorm);
+  cursor: pointer;
+}
+.main-menu .user li:last-child span {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.main-menu .user li:not(:last-child) span {
+  margin-right: 5px;
 }
 
 @media screen and (max-width: 768px) {
