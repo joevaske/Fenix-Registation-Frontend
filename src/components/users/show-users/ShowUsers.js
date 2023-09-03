@@ -7,17 +7,15 @@ const ShowUsers = () => {
   const [usersList, setUsersList] = useState([]);
 
   const getUsers = () => {
-    axios
-      .get('http://localhost:3001/users')
-      .then((response) => setUsersList(response.data));
+    axios.get('/users').then((response) => setUsersList(response.data));
   };
 
   useEffect(() => {
     getUsers();
-  });
+  }, [usersList]);
 
   const deleteUser = (id) => {
-    axios.delete(`http://localhost:3001/delete-user/${id}`);
+    axios.delete(`/users/delete-user/${id}`);
   };
   return (
     <div className='show-users'>
@@ -36,7 +34,7 @@ const ShowUsers = () => {
             <th>Datum pristupa</th>
             <th>Uloga</th>
             <th>Status</th>
-            <th>Password</th>
+            {/*   <th>Password</th> */}
             <th>Action</th>
           </tr>
         </thead>
@@ -55,7 +53,7 @@ const ShowUsers = () => {
               <td>{user.user_access_date}</td>
               <td>{user.user_role}</td>
               <td>{user.user_status}</td>
-              <td>{user.user_password}</td>
+              {/*   <td>{user.user_password}</td> */}
               <td>
                 <Link
                   className='btn btn-action'

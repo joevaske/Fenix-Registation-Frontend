@@ -1,60 +1,53 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UpdateUser.css';
 
 import axios from 'axios';
 
 const UpdateUser = ({ id }) => {
-  console.log(id);
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [street, setStreet] = useState('');
-  const [streetNr, setStreetNr] = useState('');
-  const [postNr, setPostNr] = useState('');
-  const [livingPlace, setLivingPlace] = useState('');
-  const [pid, setPid] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [accessDate, setAccessDate] = useState('2023-05-15');
-  const [role, setRole] = useState('member');
-  const [status, setStatus] = useState('active');
-  const [password, setPassword] = useState('');
+  const [inputs, setInputs] = useState({
+    id: id,
+    fname: '',
+    lname: '',
+    email: '',
+    street: '',
+    street_nr: '',
+    post_nr: '',
+    living_place: '',
+    birth_date: '',
+    access_date: '',
+    role: 'member',
+    status: 'active',
+    password: '',
+  });
 
-  const onFnameChanged = (e) => setFname(e.target.value);
-  const onLnameChanged = (e) => setLname(e.target.value);
-  const onEmailChanged = (e) => setEmail(e.target.value);
-  const onStreetChanged = (e) => setStreet(e.target.value);
-  const onStreetNrChanged = (e) => setStreetNr(e.target.value);
-  const onPostNrChanged = (e) => setPostNr(e.target.value);
-  const onLivingPlaceChanged = (e) => setLivingPlace(e.target.value);
-  const onPidChanged = (e) => setPid(e.target.value);
-  const onBirthDateChanged = (e) => setBirthDate(e.target.value);
-  const onRoleChanged = (e) => setRole(e.target.value);
-  const onStatusChanged = (e) => setStatus(e.target.value);
-  const onPasswordChanged = (e) => setPassword(e.target.value);
+  const [err, setError] = useState(null);
 
-  const [user, setUser] = useState([]);
+  const navigate = useNavigate();
 
   const getSingleUser = () => {
     axios
-      .get(`http://localhost:3001/single-user`, {
+      .get(`http://localhost:3001/users/single-user`, {
         params: {
           id: id,
         },
       })
       .then((response) => {
-        setFname(response.data[0].user_fname);
-        setLname(response.data[0].user_lname);
-        setEmail(response.data[0].user_email);
-        setStreet(response.data[0].user_street);
-        setStreetNr(response.data[0].user_street_nr);
-        setPostNr(response.data[0].user_post_nr);
-        setLivingPlace(response.data[0].user_living_place);
-        setPid(response.data[0].user_pid);
-        setBirthDate(response.data[0].user_birth_date);
-        setAccessDate(response.data[0].user_access_date);
-        setRole(response.data[0].user_role);
-        setStatus(response.data[0].user_status);
-        setPassword(response.data[0].user_password);
+        setInputs({
+          ...inputs,
+          fname: response.data[0].user_fname,
+          lname: response.data[0].user_lname,
+          email: response.data[0].user_email,
+          street: response.data[0].user_street,
+          street_nr: response.data[0].user_street_nr,
+          post_nr: response.data[0].user_post_nr,
+          living_place: response.data[0].user_living_place,
+          birth_date: response.data[0].user_birth_date,
+          access_date: response.data[0].user_access_date,
+          role: response.data[0].user_status,
+          status: response.data[0].user_status,
+          password: response.data[0].user_password,
+        });
       });
   };
 
@@ -62,37 +55,31 @@ const UpdateUser = ({ id }) => {
     getSingleUser();
   }, []);
 
-  const updateUser = () => {
-    axios
-      .put('http://localhost:3001/update', {
-        id: id,
-        fname: fname,
-        lname: lname,
-        email: email,
-        street: street,
-        street_nr: streetNr,
-        post_nr: postNr,
-        living_place: livingPlace,
-        pid: pid,
-        birth_date: birthDate,
-        access_date: accessDate,
-        role: role,
-        status: status,
-        password: password,
-      })
-      .then(() => console.log('success'));
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.put('/users/update', inputs);
+      navigate('/');
+    } catch (err) {
+      setError(err.response.data);
+    }
   };
   return (
     <div className='update-user'>
       <form>
+        {err && <p className='error-message'>{err}</p>}
         <div className='form-row'>
           <label htmlFor='fname'>First Name:</label>
           <input
             type='text'
             id='fname'
             name='fname'
-            value={fname}
-            onChange={onFnameChanged}
+            value={inputs.fname}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -101,8 +88,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='lname'
             name='lname'
-            value={lname}
-            onChange={onLnameChanged}
+            value={inputs.lname}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -111,8 +98,8 @@ const UpdateUser = ({ id }) => {
             type='email'
             id='email'
             name='email'
-            value={email}
-            onChange={onEmailChanged}
+            value={inputs.email}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -121,8 +108,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='street'
             name='street'
-            value={street}
-            onChange={onStreetChanged}
+            value={inputs.street}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -131,8 +118,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='street_nr'
             name='street_nr'
-            value={streetNr}
-            onChange={onStreetNrChanged}
+            value={inputs.street_nr}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -141,8 +128,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='post_nr'
             name='post_nr'
-            value={postNr}
-            onChange={onPostNrChanged}
+            value={inputs.post_nr}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -151,8 +138,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='living_place'
             name='living_place'
-            value={livingPlace}
-            onChange={onLivingPlaceChanged}
+            value={inputs.living_place}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -161,8 +148,8 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='pid'
             name='pid'
-            value={pid}
-            onChange={onPidChanged}
+            value={inputs.pid}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -171,13 +158,18 @@ const UpdateUser = ({ id }) => {
             type='date'
             id='birth_date'
             name='birth_date'
-            value={birthDate}
-            onChange={onBirthDateChanged}
+            value={inputs.birth_date}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
           <label htmlFor='role'>Role:</label>
-          <select id='role' name='role' onChange={onRoleChanged}>
+          <select
+            id='role'
+            name='role'
+            onChange={handleChange}
+            value={inputs.role}
+          >
             <option value='member'>Member</option>
             <option value='trainer'>Trainer</option>
             <option value='competitor'>Competitor</option>
@@ -188,8 +180,8 @@ const UpdateUser = ({ id }) => {
           <select
             id='status'
             name='status'
-            onChange={onStatusChanged}
-            value={status}
+            onChange={handleChange}
+            value={inputs.status}
           >
             <option value='active'>Active</option>
             <option value='inactive'>Inactive</option>
@@ -201,12 +193,16 @@ const UpdateUser = ({ id }) => {
             type='text'
             id='password'
             name='password'
-            value={password}
-            onChange={onPasswordChanged}
+            value={inputs.password}
+            onChange={handleChange}
           />
         </div>
         <div className='form-button'>
-          <button className='btn btn-action' type='button' onClick={updateUser}>
+          <button
+            className='btn btn-action'
+            type='button'
+            onClick={handleSubmit}
+          >
             Update User
           </button>
         </div>

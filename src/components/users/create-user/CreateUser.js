@@ -1,84 +1,70 @@
 import { useState } from 'react';
 import './CreateUser.css';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
 const CreateUser = () => {
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [street, setStreet] = useState('');
-  const [streetNr, setStreetNr] = useState('');
-  const [postNr, setPostNr] = useState('');
-  const [livingPlace, setLivingPlace] = useState('');
-  const [pid, setPid] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [accessDate, setAccessDate] = useState('2023-05-15');
-  const [role, setRole] = useState('member');
-  const [status, setStatus] = useState('active');
-  const [password, setPassword] = useState('');
+  const date = new Date();
+  // Format the date to YYYY-MM-DD
+  const formattedDate = date
+    .toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .split('/')
+    .reverse()
+    .join('-');
 
-  const onFnameChanged = (e) => setFname(e.target.value);
-  const onLnameChanged = (e) => setLname(e.target.value);
-  const onEmailChanged = (e) => setEmail(e.target.value);
-  const onStreetChanged = (e) => setStreet(e.target.value);
-  const onStreetNrChanged = (e) => setStreetNr(e.target.value);
-  const onPostNrChanged = (e) => setPostNr(e.target.value);
-  const onLivingPlaceChanged = (e) => setLivingPlace(e.target.value);
-  const onPidChanged = (e) => setPid(e.target.value);
-  const onBirthDateChanged = (e) => setBirthDate(e.target.value);
-  const onRoleChanged = (e) => setRole(e.target.value);
-  const onStatusChanged = (e) => setStatus(e.target.value);
-  const onPasswordChanged = (e) => setPassword(e.target.value);
+  const [inputs, setInputs] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    street: '',
+    street_nr: '',
+    post_nr: '',
+    living_lace: '',
+    birth_date: '',
+    access_date: formattedDate,
+    role: 'member',
+    status: 'active',
+    password: '',
+  });
 
-  const addUser = () => {
-    axios
-      .post('http://localhost:3001/create', {
-        fname: fname,
-        lname: lname,
-        email: email,
-        street: street,
-        street_nr: streetNr,
-        post_nr: postNr,
-        living_place: livingPlace,
-        pid: pid,
-        birth_date: birthDate,
-        access_date: accessDate,
-        role: role,
-        status: status,
-        password: password,
-      })
-      .then(() => console.log('success'));
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/users/create', inputs);
+      navigate('/');
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   return (
     <div className='create-user'>
       <form>
+        {err && <p className='error-message'>{err}</p>}
         <div className='form-row'>
           <label htmlFor='fname'>First Name:</label>
-          <input
-            type='text'
-            id='fname'
-            name='fname'
-            onChange={onFnameChanged}
-          />
+          <input type='text' id='fname' name='fname' onChange={handleChange} />
         </div>
         <div className='form-row'>
           <label htmlFor='lname'>Last Name:</label>
-          <input
-            type='text'
-            id='lname'
-            name='lname'
-            onChange={onLnameChanged}
-          />
+          <input type='text' id='lname' name='lname' onChange={handleChange} />
         </div>
         <div className='form-row'>
           <label htmlFor='email'>Email:</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            onChange={onEmailChanged}
-          />
+          <input type='email' id='email' name='email' onChange={handleChange} />
         </div>
         <div className='form-row'>
           <label htmlFor='street'>Streer (address):</label>
@@ -86,7 +72,7 @@ const CreateUser = () => {
             type='text'
             id='street'
             name='street'
-            onChange={onStreetChanged}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -95,7 +81,7 @@ const CreateUser = () => {
             type='text'
             id='street_nr'
             name='street_nr'
-            onChange={onStreetNrChanged}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -104,7 +90,7 @@ const CreateUser = () => {
             type='text'
             id='post_nr'
             name='post_nr'
-            onChange={onPostNrChanged}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
@@ -113,12 +99,12 @@ const CreateUser = () => {
             type='text'
             id='living_place'
             name='living_place'
-            onChange={onLivingPlaceChanged}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
           <label htmlFor='pid'>Personal Id:</label>
-          <input type='text' id='pid' name='pid' onChange={onPidChanged} />
+          <input type='text' id='pid' name='pid' onChange={handleChange} />
         </div>
         <div className='form-row'>
           <label htmlFor='birth_date'>Birth date:</label>
@@ -126,12 +112,12 @@ const CreateUser = () => {
             type='date'
             id='birth_date'
             name='birth_date'
-            onChange={onBirthDateChanged}
+            onChange={handleChange}
           />
         </div>
         <div className='form-row'>
           <label htmlFor='role'>Role:</label>
-          <select id='role' name='role' onChange={onRoleChanged}>
+          <select id='role' name='role' onChange={handleChange}>
             <option value='member'>Member</option>
             <option value='trainer'>Trainer</option>
             <option value='competitor'>Competitor</option>
@@ -139,7 +125,7 @@ const CreateUser = () => {
         </div>
         <div className='form-row'>
           <label htmlFor='status'>Status:</label>
-          <select id='status' name='status' onChange={onStatusChanged}>
+          <select id='status' name='status' onChange={handleChange}>
             <option value='active'>Active</option>
             <option value='inactive'>Inactive</option>
           </select>
@@ -150,12 +136,16 @@ const CreateUser = () => {
             type='text'
             id='password'
             name='password'
-            onChange={onPasswordChanged}
+            onChange={handleChange}
           />
         </div>
 
         <div className='form-button'>
-          <button className='btn btn-action' type='button' onClick={addUser}>
+          <button
+            className='btn btn-action'
+            type='button'
+            onClick={handleSubmit}
+          >
             Create User
           </button>
         </div>
