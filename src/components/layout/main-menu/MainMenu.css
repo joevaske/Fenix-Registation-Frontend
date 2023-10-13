@@ -1,39 +1,95 @@
 .main-menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 10px 20px 15px 20px;
+  padding-right: 20px;
 
-  background-color: var(--independance);
+  /* background-color: var(--independance); */
+
+  height: 65px;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 9%,
+    rgba(75, 74, 103, 1) 100%
+  );
   color: white;
+  border-bottom: 1px solid var(--independance);
+  box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.1);
 }
-
+.logo {
+  margin-right: 20px;
+}
 .logo a {
   text-decoration: none;
   color: white;
   font-size: 28px;
+  transition: all 0.2s ease;
+  display: block;
+  transform: translateY(-3px);
 }
 
+.main-menu nav:nth-child(2) {
+  margin-right: auto;
+}
+.main-menu li:hover,
+.main-menu li:focus-within {
+  cursor: pointer;
+}
 .main-menu nav ul {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   list-style: none;
   list-style-type: none;
 }
+
+.main-menu nav ul li {
+  position: relative;
+  margin-left: 20px;
+}
+
 .main-menu nav ul li a {
   text-decoration: none;
   color: white;
   padding: 10px 15px;
 }
+.main-menu nav ul li ul li {
+  text-decoration: none;
+  color: white;
+  padding: 10px 0;
+}
+.main-menu nav ul li ul li a:hover {
+  color: var(--dustStorm);
+}
+.main-menu nav ul li ul {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  background-color: var(--independance);
+  display: none;
+  width: 150px;
+  padding-top: 10px;
+  z-index: 10;
+}
+.main-menu ul li:hover > ul,
+.main-menu ul li ul:hover,
+.main-menu ul li ul:focus {
+  opacity: 1;
+  display: block;
+}
 
+.main-menu ul li ul li {
+  clear: both;
+  width: 100%;
+}
 .main-menu .user {
   display: flex;
 }
 .main-menu .user span {
   display: block;
-  padding: 8px 10px;
 
   font-size: 14px;
   color: var(--dustStorm);
@@ -46,12 +102,23 @@
 .main-menu .user li:not(:last-child) span {
   margin-right: 5px;
 }
+.main-menu .user-name {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
 
+.main-menu .user-logout {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+.main-menu .user-logout pre {
+  font-size: 14px;
+}
 @media screen and (max-width: 768px) {
-  .main-menu {
-    flex-direction: column;
-    width: 100vw;
-  }
   .logo {
     border-bottom: 1px solid var(--mummysTomb);
     width: 100%;
@@ -63,7 +130,6 @@
   }
   .main-menu nav {
     width: 100%;
-    padding-top: 5px;
   }
   .main-menu nav ul {
     width: 100%;
@@ -72,5 +138,11 @@
   .main-menu nav ul li a {
     font-size: 14px;
     padding: 5px 10px;
+  }
+  .main-menu .user-logout {
+    padding: 10px;
+  }
+  .main-menu .user-logout pre {
+    display: none;
   }
 }

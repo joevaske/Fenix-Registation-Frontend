@@ -1,0 +1,10 @@
+.loading {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 150px;
+  background-color: var(--dustStorm);
+  z-index: 1000;
+}

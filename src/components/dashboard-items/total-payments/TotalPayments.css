@@ -1,0 +1,45 @@
+.total-payments {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid var(--silver);
+  border-radius: 4px;
+}
+.total-payments-header h6 {
+  font-size: 18px;
+  font-weight: 400;
+}
+.total-payments-body {
+  padding: 0 20px;
+}
+.total-payments-body-part-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.total-payments-body-part-1 h4 {
+  font-size: 42px;
+}
+.total-payments-body-part-1 h3 {
+  font-size: 42px;
+}
+.total-payments-statistics {
+  padding: 10px 0px 0 0px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: space-between;
+}
+.total-payments-comparation {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+.total-payments-comparation button {
+  display: flex;
+  gap: 10px;
+}
+.comparation-explanation {
+  font-size: 12px;
+  text-align: right;
+}

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import './CreateUser.css';
 import { useNavigate } from 'react-router-dom';
-
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addNewUser } from '../../../redux/features/users/usersSlice';
+import './CreateUser.css';
 
 const CreateUser = () => {
+  const dispatch = useDispatch();
   const date = new Date();
   // Format the date to YYYY-MM-DD
   const formattedDate = date
@@ -24,13 +25,16 @@ const CreateUser = () => {
     street: '',
     street_nr: '',
     post_nr: '',
-    living_lace: '',
+    living_place: '',
+    pid: '',
     birth_date: '',
     access_date: formattedDate,
     role: 'member',
     status: 'active',
     password: '',
   });
+
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
   const [err, setError] = useState(null);
 
@@ -42,12 +46,9 @@ const CreateUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post('/users/create', inputs);
-      navigate('/');
-    } catch (err) {
-      setError(err.response.data);
-    }
+    dispatch(addNewUser(inputs));
+
+    navigate('/users');
   };
 
   return (
@@ -118,6 +119,7 @@ const CreateUser = () => {
         <div className='form-row'>
           <label htmlFor='role'>Role:</label>
           <select id='role' name='role' onChange={handleChange}>
+            <option value=''></option>
             <option value='member'>Member</option>
             <option value='trainer'>Trainer</option>
             <option value='competitor'>Competitor</option>
@@ -126,6 +128,7 @@ const CreateUser = () => {
         <div className='form-row'>
           <label htmlFor='status'>Status:</label>
           <select id='status' name='status' onChange={handleChange}>
+            <option value=''></option>
             <option value='active'>Active</option>
             <option value='inactive'>Inactive</option>
           </select>

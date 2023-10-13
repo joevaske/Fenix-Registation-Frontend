@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { register, reset } from '../../redux/features/auth/authSlice';
+
 import './RegisterForm.css';
+import Loading from '../layout/loading/Loading';
 
 const RegisterForm = () => {
-  /*   const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onFnameChanged = (e) => setFname(e.target.value);
-  const onLnameChanged = (e) => setLname(e.target.value);
-  const onEmailChanged = (e) => setEmail(e.target.value);
-  const onPasswordChanged = (e) => setPassword(e.target.value); */
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
   const [inputs, setInputs] = useState({
     fname: '',
@@ -21,9 +21,17 @@ const RegisterForm = () => {
     password: '',
   });
 
-  const [err, setError] = useState(null);
+  useEffect(() => {
+    if (isError) {
+      setError(message);
+    }
+    /*  if (isSuccess || user) {
+      navigate('/');
+    } */
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const navigate = useNavigate();
+  const [err, setError] = useState(null);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,16 +39,14 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        'http://localhost:3001/auth/register',
-        inputs
-      );
-      navigate('/login');
-    } catch (err) {
-      setError(err.response.data);
-    }
+
+    dispatch(register(inputs));
+    navigate('/login');
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className='register-form'>
       <h1>
@@ -76,6 +82,7 @@ const RegisterForm = () => {
             id='email'
             name='email'
             required
+            autoComplete='off'
             onChange={handleChange}
           />
         </div>
@@ -85,6 +92,7 @@ const RegisterForm = () => {
             type='text'
             id='password'
             name='password'
+            autoComplete='off'
             required
             onChange={handleChange}
           />

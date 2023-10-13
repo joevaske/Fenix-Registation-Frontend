@@ -1,0 +1,201 @@
+.side-menu {
+  /* position: fixed;*/
+  /*   top: 0;
+  bottom: 0;
+  left: 0; */
+  /* background-color: azure; */
+  min-width: 250px;
+  z-index: 100;
+  position: relative;
+  padding-bottom: 50px;
+
+  border-right: 1px solid var(--mummysTomb);
+  border-bottom: 1px solid var(--mummysTomb);
+  border-radius: 0 0 4px 0;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.2);
+}
+.side-menu-toggler {
+  position: absolute;
+  right: -60px;
+  top: 16px;
+  width: 40px;
+  height: 40px;
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  color: var(--independance);
+  /*color: var(--independance);*/
+}
+.side-menu-toggler.active {
+  transform: scaleX(-1);
+  color: var(----mummysTomb);
+  right: -40px;
+  color: var(--independance);
+}
+.side-logo {
+  width: 100%;
+  height: auto;
+  padding: 13px 7px 2px 15px;
+  font-size: 36px;
+  border-bottom: 1px solid var(--independance);
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+.side-logo a {
+  color: var(--independance);
+}
+.side-logo-icon {
+  margin-right: 8px;
+}
+.side-logo-text {
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 400;
+  transform: translateY(-5px);
+}
+.side-navigation {
+  padding: 20px;
+  /*   background-color: bisque; */
+}
+.dropdown-link {
+  position: relative;
+}
+.link-desc {
+  display: flex;
+  opacity: 0.6;
+  color: var(--independance);
+}
+.link-desc:hover,
+.link-desc.active {
+  color: var(----mummysTomb);
+  opacity: 0.9;
+}
+
+.link-desc span {
+  display: inline-block;
+  margin-left: 10px;
+}
+.dropdown-link-icon {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  opacity: 0.6;
+}
+.dropdown-link-icon:hover,
+.dropdown-link-icon.active {
+  opacity: 0.9;
+}
+.side-navigation nav ul {
+  list-style: none;
+  list-style-type: none;
+}
+.side-navigation nav ul li {
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.side-navigation .nav-link {
+  text-decoration: none;
+  color: var(--independance);
+}
+.side-navigation .nav-link span {
+  display: inline-block;
+  margin-left: 5px;
+}
+.side-navigation nav ul li a:hover,
+.side-navigation .nav-link.active {
+  color: var(--mummysTomb);
+  opacity: 0.9;
+}
+.side-navigation nav ul li ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 20px;
+  list-style: none;
+  list-style-type: none;
+  margin-top: 10px;
+  animation: slide-menu-item-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+
+@keyframes slide-menu-item-right {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+.side-navigation nav ul li ul li {
+  margin-bottom: 5px;
+}
+.side-navigation nav ul li ul li a {
+  text-decoration: none;
+  color: var(--independance);
+  opacity: 0.7;
+}
+
+.side-navigation nav ul li ul li a.active {
+  opacity: 0.9;
+}
+
+.side-navigation nav ul li ul li a pre {
+  display: inline-block;
+  transform: translateY(2px);
+  margin-right: 3px;
+
+  display: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.side-navigation nav ul li ul li a:hover pre {
+  display: inline-block;
+}
+.side-navigation nav ul li ul li a.active pre {
+  display: inline-block;
+}
+/* Small menu */
+
+.side-menu.small {
+  min-width: 60px;
+}
+
+.side-menu.small .side-logo .side-logo-text {
+  display: none;
+}
+.side-menu.small .side-navigation {
+  padding: 20px;
+}
+.side-menu.small .side-navigation .nav-link span {
+  display: none;
+}
+.side-menu.small .side-navigation .nav-link,
+.side-menu.small .side-navigation .dropdown-link .link-desc {
+  font-size: 24px;
+}
+.side-menu.small .side-navigation .dropdown-link span {
+  display: none;
+}
+.side-menu.small .side-navigation nav ul li {
+  position: relative;
+}
+
+.side-menu.small .side-navigation nav ul li ul {
+  position: absolute;
+  right: -187px;
+  top: -10px;
+  padding: 10px 5px 10px 20px;
+  width: 170px;
+  background-color: #f2f2f2;
+  z-index: 100;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.2);
+}

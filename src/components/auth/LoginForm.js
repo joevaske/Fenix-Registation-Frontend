@@ -1,17 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, reset } from '../../redux/features/auth/authSlice';
+import { fetchUsers } from '../../redux/features/users/usersSlice';
+
 import './LoginForm.css';
 
+import Loading from '../layout/loading/Loading';
+
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
   });
 
-  const [err, setError] = useState(null);
+  useEffect(() => {
+    if (isError) {
+      setError(message);
+    }
+    if (user) {
+      navigate('/');
+    }
 
-  const navigate = useNavigate();
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const [err, setError] = useState(null);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,13 +40,14 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:3001/auth/login', inputs);
-      navigate('/');
-    } catch (err) {
-      setError(err.response.data);
-    }
+    dispatch(login(inputs));
+    dispatch(fetchUsers());
+    navigate('/');
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className='login-form'>
       <h1>
@@ -52,6 +74,7 @@ const LoginForm = () => {
             name='password'
             required
             onChange={handleChange}
+            autoComplete='off'
           />
         </div>
 

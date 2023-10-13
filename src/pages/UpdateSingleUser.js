@@ -6,7 +6,7 @@ const UpdateSingleUser = () => {
 
   return (
     <div className='update-single-user'>
-      <UpdateUser id={params.id} />
+      <UpdateUser />
     </div>
   );
 };

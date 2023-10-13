@@ -9,13 +9,20 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Footer from './components/layout/footer/Footer';
 import ShowUsers from './components/users/show-users/ShowUsers';
+import CreatePayment from './components/payments/create-payment/CreatePayment';
+import ShowPayments from './components/payments/show-payments/ShowPayments';
+import UpdatePayment from './components/payments/update-payment/UpdatePayment';
+import SideMenu from './components/layout/side-menu/SideMenu';
 
 const Layout = () => {
   return (
     <>
-      <MainMenu />
-      <Outlet />
-      <Footer />
+      <SideMenu />
+      <div className='main-container'>
+        <MainMenu />
+        <Outlet />
+        <Footer />
+      </div>
     </>
   );
 };
@@ -40,6 +47,18 @@ const router = createBrowserRouter([
       {
         path: '/update-user/:id',
         element: <UpdateSingleUser />,
+      },
+      {
+        path: '/create-payment',
+        element: <CreatePayment />,
+      },
+      {
+        path: '/show-payments',
+        element: <ShowPayments />,
+      },
+      {
+        path: '/update-payment/:id',
+        element: <UpdatePayment />,
       },
     ],
   },

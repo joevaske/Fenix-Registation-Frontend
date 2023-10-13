@@ -1,0 +1,10 @@
+.dashboard {
+  background-color: aliceblue;
+  padding: 20px;
+}
+.dashboard-overview {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px;
+}

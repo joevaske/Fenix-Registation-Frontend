@@ -1,71 +1,102 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  updateUser,
+  selectUserById,
+} from '../../../redux/features/users/usersSlice';
+
 import './UpdateUser.css';
 
-import axios from 'axios';
+const UpdateUser = () => {
+  const dispatch = useDispatch();
+  const params = useParams();
 
-const UpdateUser = ({ id }) => {
+  const id = params.id;
+  // retrive userId
+  const user = useSelector((state) => selectUserById(state, Number(id)));
+
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
+
   const [inputs, setInputs] = useState({
-    id: id,
-    fname: '',
-    lname: '',
-    email: '',
-    street: '',
-    street_nr: '',
-    post_nr: '',
-    living_place: '',
-    birth_date: '',
-    access_date: '',
-    role: 'member',
-    status: 'active',
-    password: '',
+    id: user.user_id,
+    fname: user.user_fname,
+    lname: user.user_lname,
+    email: user.user_email,
+    street: user.user_street,
+    street_nr: user.user_street_nr,
+    post_nr: user.user_post_nr,
+    living_place: user.user_living_place,
+    pid: user.user_pid,
+    birth_date: user.user_birth_date,
+    access_date: user.user_access_date,
+    role: user.user_role,
+    status: user.user_status,
+    password: user.user_password,
   });
 
+  /*   console.log(user);
+  console.log(inputs); */
   const [err, setError] = useState(null);
 
   const navigate = useNavigate();
-
-  const getSingleUser = () => {
-    axios
-      .get(`http://localhost:3001/users/single-user`, {
-        params: {
-          id: id,
-        },
-      })
-      .then((response) => {
-        setInputs({
-          ...inputs,
-          fname: response.data[0].user_fname,
-          lname: response.data[0].user_lname,
-          email: response.data[0].user_email,
-          street: response.data[0].user_street,
-          street_nr: response.data[0].user_street_nr,
-          post_nr: response.data[0].user_post_nr,
-          living_place: response.data[0].user_living_place,
-          birth_date: response.data[0].user_birth_date,
-          access_date: response.data[0].user_access_date,
-          role: response.data[0].user_status,
-          status: response.data[0].user_status,
-          password: response.data[0].user_password,
-        });
-      });
-  };
-
-  useEffect(() => {
-    getSingleUser();
-  }, []);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const canSave =
+    [inputs.fname, inputs.lname, inputs.email, inputs.password].every(
+      Boolean
+    ) && addRequestStatus === 'idle';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.put('/users/update', inputs);
-      navigate('/');
-    } catch (err) {
-      setError(err.response.data);
+
+    if (canSave) {
+      try {
+        setAddRequestStatus('pending');
+        await dispatch(
+          updateUser({
+            id: Number(id),
+            fname: inputs.fname,
+            lname: inputs.lname,
+            email: inputs.email,
+            street: inputs.street,
+            street_nr: inputs.street_nr,
+            post_nr: inputs.post_nr,
+            living_place: inputs.living_place,
+            pid: inputs.pid,
+            birth_date: inputs.birth_date,
+            access_date: inputs.access_date,
+            role: inputs.role,
+            status: inputs.status,
+            password: inputs.password,
+          })
+        ).unwrap();
+        setInputs({
+          fname: '',
+          lname: '',
+          email: '',
+          street: '',
+          street_nr: '',
+          post_nr: '',
+          living_place: '',
+          pid: '',
+          birth_date: '',
+          access_date: '',
+          role: 'member',
+          status: 'active',
+          password: '',
+        });
+
+        navigate('/');
+      } catch (err) {
+        console.error('Failed to update the user: ', err);
+        setError('Failed to update the user: ', err);
+      } finally {
+        setAddRequestStatus('idle');
+      }
     }
   };
   return (
@@ -95,6 +126,7 @@ const UpdateUser = ({ id }) => {
         <div className='form-row'>
           <label htmlFor='email'>Email:</label>
           <input
+            autocomplete='off'
             type='email'
             id='email'
             name='email'
@@ -190,7 +222,7 @@ const UpdateUser = ({ id }) => {
         <div className='form-row'>
           <label htmlFor='password'>Password:</label>
           <input
-            type='text'
+            type='password'
             id='password'
             name='password'
             value={inputs.password}
