@@ -3,6 +3,10 @@
   margin: 50px auto;
 }
 
+.user-image {
+  max-width: 250px;
+}
+
 @media screen and (max-width: 768px) {
   .update-user {
     padding: 10px;

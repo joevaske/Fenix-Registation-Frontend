@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addNewUser } from '../../../redux/features/users/usersSlice';
 import './CreateUser.css';
+import axios from 'axios';
 
 const CreateUser = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const CreateUser = () => {
     fname: '',
     lname: '',
     email: '',
+    image: '',
     street: '',
     street_nr: '',
     post_nr: '',
@@ -34,9 +36,8 @@ const CreateUser = () => {
     password: '',
   });
 
-  const [addRequestStatus, setAddRequestStatus] = useState('idle');
-
   const [err, setError] = useState(null);
+  const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -44,16 +45,48 @@ const CreateUser = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const config = {
+    headers: { 'content-type': 'multipart/form-data' },
+  };
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post('/upload', formData, config);
+      setInputs((prev) => ({ ...prev, image: res.data }));
+
+      console.log(file.name);
+      console.log(inputs);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleAddImage = (e) => {
+    e.preventDefault();
+    console.log('Add Image');
+    upload();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addNewUser(inputs));
 
-    navigate('/users');
+    if (inputs.image === '') {
+      if (window.confirm('Image not added confirm')) {
+        dispatch(addNewUser(inputs));
+        navigate('/users');
+      }
+    } else {
+      dispatch(addNewUser(inputs));
+      navigate('/users');
+    }
   };
 
   return (
     <div className='create-user'>
-      <form>
+      <form encType='multipart/form-data'>
         {err && <p className='error-message'>{err}</p>}
         <div className='form-row'>
           <label htmlFor='fname'>First Name:</label>
@@ -66,6 +99,27 @@ const CreateUser = () => {
         <div className='form-row'>
           <label htmlFor='email'>Email:</label>
           <input type='email' id='email' name='email' onChange={handleChange} />
+        </div>
+        <div className='form-row'>
+          {inputs.image && (
+            <img
+              className='user-image'
+              src={`../../../upload/${inputs.image}`}
+            />
+          )}
+
+          <label htmlFor='file'>Upload Image:</label>
+          <input
+            filename={file}
+            /*   style={{ display: 'none' }} */
+            type='file'
+            id='file'
+            name='file'
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <button className='btn' onClick={handleAddImage}>
+            Add Image
+          </button>
         </div>
         <div className='form-row'>
           <label htmlFor='street'>Streer (address):</label>

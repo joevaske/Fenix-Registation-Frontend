@@ -28,7 +28,7 @@ const LatestUsers = () => {
         ))}
       </div>
       <div className='total-users-footer'>
-        <Link to='/show-users'>Show all users</Link>
+        <Link to='/users'>Show all users</Link>
       </div>
     </div>
   );

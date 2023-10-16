@@ -51,6 +51,7 @@ export const updateUser = createAsyncThunk(
         user_fname: initialUser.fname,
         user_lname: initialUser.lname,
         user_email: initialUser.email,
+        user_image: initialUser.image,
         user_street: initialUser.street,
         user_street_nr: initialUser.street_nr,
         user_post_nr: initialUser.post_nr,
@@ -134,6 +135,8 @@ export const usersSlice = createSlice({
         const { user_id } = action.payload.data.user;
         const index = state.users.findIndex((user) => user.user_id === user_id);
         state.users[index] = action.payload.data.user;
+        state.isLoading = false;
+        state.isSuccess = true;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         const index = state.users.findIndex(

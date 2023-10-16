@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import './ShowUsers.css';
 
 import Loading from '../../layout/loading/Loading';
+import placeholder from '../../../images/placeholder.jpg';
 
 const ShowUsers = () => {
   const dispatch = useDispatch();
@@ -60,7 +61,22 @@ const ShowUsers = () => {
             {users &&
               users.map((user) => (
                 <tr className='users-list' key={user.user_id}>
-                  <td className='sticky-col first-col'>{user.user_fname}</td>
+                  <td className='sticky-col first-col'>
+                    <img
+                      className='users-list-image'
+                      src={
+                        user.user_image === ''
+                          ? placeholder
+                          : process.env.PUBLIC_URL + 'upload/' + user.user_image
+                      }
+                    />{' '}
+                    {/*  <img
+                      src={
+                        process.env.PUBLIC_URL + `/upload/${user.user_image}`
+                      }
+                    /> */}
+                    {user.user_fname}
+                  </td>
                   <td className='sticky-col second-col'>{user.user_lname}</td>
                   <td>{user.user_email}</td>
                   <td>{user.user_street}</td>

@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import {
   updateUser,
   selectUserById,
+  fetchUsers,
 } from '../../../redux/features/users/usersSlice';
 
 import './UpdateUser.css';
+
+import placeholder from '../../../images/placeholder.jpg';
 
 const UpdateUser = () => {
   const dispatch = useDispatch();
@@ -16,13 +20,12 @@ const UpdateUser = () => {
   // retrive userId
   const user = useSelector((state) => selectUserById(state, Number(id)));
 
-  const [addRequestStatus, setAddRequestStatus] = useState('idle');
-
   const [inputs, setInputs] = useState({
     id: user.user_id,
     fname: user.user_fname,
     lname: user.user_lname,
     email: user.user_email,
+    image: user.user_image,
     street: user.user_street,
     street_nr: user.user_street_nr,
     post_nr: user.user_post_nr,
@@ -38,6 +41,7 @@ const UpdateUser = () => {
   /*   console.log(user);
   console.log(inputs); */
   const [err, setError] = useState(null);
+  const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -45,63 +49,48 @@ const UpdateUser = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const canSave =
-    [inputs.fname, inputs.lname, inputs.email, inputs.password].every(
-      Boolean
-    ) && addRequestStatus === 'idle';
+  const config = {
+    headers: { 'content-type': 'multipart/form-data' },
+  };
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post('/upload', formData, config);
+      setInputs((prev) => ({ ...prev, image: res.data }));
+      console.log(inputs);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpdateImage = (e) => {
+    e.preventDefault();
+    console.log(' Image Update');
+    upload();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (canSave) {
-      try {
-        setAddRequestStatus('pending');
-        await dispatch(
-          updateUser({
-            id: Number(id),
-            fname: inputs.fname,
-            lname: inputs.lname,
-            email: inputs.email,
-            street: inputs.street,
-            street_nr: inputs.street_nr,
-            post_nr: inputs.post_nr,
-            living_place: inputs.living_place,
-            pid: inputs.pid,
-            birth_date: inputs.birth_date,
-            access_date: inputs.access_date,
-            role: inputs.role,
-            status: inputs.status,
-            password: inputs.password,
-          })
-        ).unwrap();
-        setInputs({
-          fname: '',
-          lname: '',
-          email: '',
-          street: '',
-          street_nr: '',
-          post_nr: '',
-          living_place: '',
-          pid: '',
-          birth_date: '',
-          access_date: '',
-          role: 'member',
-          status: 'active',
-          password: '',
-        });
-
-        navigate('/');
-      } catch (err) {
-        console.error('Failed to update the user: ', err);
-        setError('Failed to update the user: ', err);
-      } finally {
-        setAddRequestStatus('idle');
+    if (inputs.image === '') {
+      if (
+        window.confirm('User image is not uploaded. Do you want to proceed?')
+      ) {
+        dispatch(updateUser(inputs));
+        navigate('/users');
       }
+    } else {
+      dispatch(updateUser(inputs));
+      navigate('/users');
     }
   };
+
   return (
     <div className='update-user'>
-      <form>
+      <form encType='multipart/form-data'>
         {err && <p className='error-message'>{err}</p>}
         <div className='form-row'>
           <label htmlFor='fname'>First Name:</label>
@@ -133,6 +122,28 @@ const UpdateUser = () => {
             value={inputs.email}
             onChange={handleChange}
           />
+        </div>
+        <div className='form-row'>
+          <img
+            className='user-image'
+            src={
+              inputs.user_image === ''
+                ? placeholder
+                : `../../../upload/${inputs.image}`
+            }
+          />
+          <label htmlFor='file'>Upload Image:</label>
+          <input
+            filename={file}
+            /* style={{ display: 'none' }} */
+            type='file'
+            id='file'
+            name='file'
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <button className='btn' onClick={handleUpdateImage}>
+            Update Image
+          </button>
         </div>
         <div className='form-row'>
           <label htmlFor='street'>Streer (address):</label>
