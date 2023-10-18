@@ -51,6 +51,7 @@ export const updateUser = createAsyncThunk(
         user_fname: initialUser.fname,
         user_lname: initialUser.lname,
         user_email: initialUser.email,
+        user_phone: initialUser.phone,
         user_image: initialUser.image,
         user_street: initialUser.street,
         user_street_nr: initialUser.street_nr,
@@ -60,6 +61,7 @@ export const updateUser = createAsyncThunk(
         user_birth_date: initialUser.birth_date,
         user_access_date: initialUser.access_date,
         user_role: initialUser.role,
+        user_rank: initialUser.rank,
         user_status: initialUser.status,
         user_password: initialUser.password,
       };

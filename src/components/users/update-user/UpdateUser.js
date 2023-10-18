@@ -25,6 +25,7 @@ const UpdateUser = () => {
     fname: user.user_fname,
     lname: user.user_lname,
     email: user.user_email,
+    phone: user.user_phone,
     image: user.user_image,
     street: user.user_street,
     street_nr: user.user_street_nr,
@@ -34,6 +35,7 @@ const UpdateUser = () => {
     birth_date: user.user_birth_date,
     access_date: user.user_access_date,
     role: user.user_role,
+    rank: user.user_rank,
     status: user.user_status,
     password: user.user_password,
   });
@@ -120,6 +122,17 @@ const UpdateUser = () => {
             id='email'
             name='email'
             value={inputs.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='form-row'>
+          <label htmlFor='phone'>Phone:</label>
+          <input
+            autocomplete='off'
+            type='tel'
+            id='phone'
+            name='phone'
+            value={inputs.phone}
             onChange={handleChange}
           />
         </div>
@@ -216,6 +229,34 @@ const UpdateUser = () => {
             <option value='member'>Member</option>
             <option value='trainer'>Trainer</option>
             <option value='competitor'>Competitor</option>
+          </select>
+        </div>
+        <div className='form-row'>
+          <label htmlFor='rank'>Rank(belt):</label>
+          <select
+            id='rank'
+            name='rank'
+            onChange={handleChange}
+            value={inputs.rank}
+          >
+            <option value=''></option>
+            <option value='white'>White</option>
+            <option value='gray-white'>Gray-White</option>
+            <option value='gray'>Gray</option>
+            <option value='gray-black'>Gray-Black</option>
+            <option value='yellow-white'>Yellow-White</option>
+            <option value='yellow'>Yellow</option>
+            <option value='yellow-black'>Yellow-Black</option>
+            <option value='orange-white'>Orange-White</option>
+            <option value='orange'>Orange</option>
+            <option value='orange-black'>Orange-Black</option>
+            <option value='green-white'>Green-White</option>
+            <option value='green'>Green</option>
+            <option value='green-black'>Green-Black</option>
+            <option value='blue'>Blue</option>
+            <option value='purple'>Purple</option>
+            <option value='brown'>Brown</option>
+            <option value='black'>Black</option>
           </select>
         </div>
         <div className='form-row'>

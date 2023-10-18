@@ -59,7 +59,18 @@ h3 {
 .btn-action {
   background-color: var(--independance);
 }
-
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+.btn-md {
+  padding: 10px 15px;
+  font-size: 16px;
+}
+.btn-lg {
+  padding: 15px 25px;
+  font-size: 18px;
+}
 /* Forms  */
 form .form-row {
   width: 100%;

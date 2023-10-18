@@ -23,6 +23,7 @@ const CreateUser = () => {
     fname: '',
     lname: '',
     email: '',
+    phone: '',
     image: '',
     street: '',
     street_nr: '',
@@ -32,6 +33,7 @@ const CreateUser = () => {
     birth_date: '',
     access_date: formattedDate,
     role: 'member',
+    rank: 'white',
     status: 'active',
     password: '',
   });
@@ -99,6 +101,10 @@ const CreateUser = () => {
         <div className='form-row'>
           <label htmlFor='email'>Email:</label>
           <input type='email' id='email' name='email' onChange={handleChange} />
+        </div>
+        <div className='form-row'>
+          <label htmlFor='phone'>Phone:</label>
+          <input type='tel' id='phone' name='phone' onChange={handleChange} />
         </div>
         <div className='form-row'>
           {inputs.image && (
@@ -177,6 +183,29 @@ const CreateUser = () => {
             <option value='member'>Member</option>
             <option value='trainer'>Trainer</option>
             <option value='competitor'>Competitor</option>
+          </select>
+        </div>
+        <div className='form-row'>
+          <label htmlFor='rank'>Rank(belt):</label>
+          <select id='rank' name='rank' onChange={handleChange}>
+            <option value=''></option>
+            <option value='white'>White</option>
+            <option value='gray-white'>Gray-White</option>
+            <option value='gray'>Gray</option>
+            <option value='gray-black'>Gray-Black</option>
+            <option value='yellow-white'>Yellow-White</option>
+            <option value='yellow'>Yellow</option>
+            <option value='yellow-black'>Yellow-Black</option>
+            <option value='orange-white'>Orange-White</option>
+            <option value='orange'>Orange</option>
+            <option value='orange-black'>Orange-Black</option>
+            <option value='green-white'>Green-White</option>
+            <option value='green'>Green</option>
+            <option value='green-black'>Green-Black</option>
+            <option value='blue'>Blue</option>
+            <option value='purple'>Purple</option>
+            <option value='brown'>Brown</option>
+            <option value='black'>Black</option>
           </select>
         </div>
         <div className='form-row'>

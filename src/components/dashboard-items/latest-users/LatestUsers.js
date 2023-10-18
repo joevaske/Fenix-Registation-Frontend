@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './LatestUsers.css';
 import { fetchUsers } from '../../../redux/features/users/usersSlice';
+import placeholder from '../../../images/placeholder.jpg';
 
 const LatestUsers = () => {
   const dispatch = useDispatch();
@@ -22,13 +23,57 @@ const LatestUsers = () => {
       </div>
       <div className='total-users-body'>
         {users.slice(0, 5).map((user) => (
-          <p>
-            {user.user_fname} {user.user_lname} {user.user_email}
-          </p>
+          <div className='latest-users-user'>
+            <div className='latest-user-header'></div>
+            <div className='latest-user-body'>
+              <div className='latest-user-body-image'>
+                <img
+                  className='users-list-image'
+                  src={
+                    user.user_image === ''
+                      ? placeholder
+                      : `../../../upload/${user.user_image}`
+                  }
+                />
+              </div>
+              <div className='latest-user-body-info'>
+                <h3>
+                  {user.user_fname} {user.user_lname}
+                </h3>
+                <div className='latest-user-body-info-contact'>
+                  <p>{user.user_email}</p>
+                  <p>{user.user_phone}</p>
+                </div>
+              </div>
+            </div>
+            <div className='latest-user-footer'>
+              <div className='latest-user-footer-left'>
+                <div
+                  className={`user-rank user-rank-${
+                    user.user_rank ? user.user_rank : 'white'
+                  }`}
+                >
+                  <div className='user-rank-1'></div>
+                  <div className='user-rank-2'></div>
+                  <div className='user-rank-1'></div>
+                </div>
+                <div className='user-rank-title'>
+                  {user.user_rank ? user.user_rank : 'white'}
+                </div>
+              </div>
+              <div className='latest-user-footer-right'>View profile</div>
+            </div>
+          </div>
+          /*  <p>
+            {user.user_image} {user.user_fname} {user.user_lname}{' '}
+            {user.user_email}
+          </p> */
         ))}
       </div>
       <div className='total-users-footer'>
-        <Link to='/users'>Show all users</Link>
+        <Link className='btn btn-action btn-sm' to='/users'>
+          Show all users
+        </Link>
       </div>
     </div>
   );

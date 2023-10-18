@@ -5,6 +5,167 @@
   border-radius: 4px;
 }
 .latest-users-header h6 {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
+}
+.latest-users-user {
+  border-bottom: 1px solid var(--silver);
+  padding: 10px 0;
+}
+.latest-user-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.latest-user-body-info {
+  padding-top: 7px;
+  width: 100%;
+}
+.latest-user-body-info h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.latest-user-body-info p {
+  font-size: 14px;
+}
+.latest-user-body-info-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.latest-user-footer {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.latest-user-footer-left {
+  text-transform: capitalize;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.total-users-footer {
+  text-align: right;
+  padding: 20px 10px 0px 10px;
+}
+
+/* ranking-system */
+
+.user-rank {
+  width: 50px;
+  padding: 0px;
+}
+.user-rank-1,
+.user-rank-2 {
+  height: 5px;
+}
+
+/* White */
+.user-rank-white .user-rank-1,
+.user-rank-white .user-rank-2 {
+  background-color: white;
+}
+
+/* blue */
+.user-rank-blue .user-rank-1,
+.user-rank-blue .user-rank-2 {
+  background-color: rgb(33, 33, 192);
+}
+
+/* purple */
+.user-rank-purple .user-rank-1,
+.user-rank-purple .user-rank-2 {
+  background-color: purple;
+}
+/* brown */
+.user-rank-brown .user-rank-1,
+.user-rank-brown .user-rank-2 {
+  background-color: brown;
+}
+
+/* black */
+.user-rank-black .user-rank-1,
+.user-rank-black .user-rank-2 {
+  background-color: black;
+}
+
+/*gray  */
+.user-rank-gray-white .user-rank-1 {
+  background-color: gray;
+}
+.user-rank-gray-white .user-rank-2 {
+  background-color: white;
+}
+.user-rank-gray .user-rank-1,
+.user-rank-gray .user-rank-2 {
+  background-color: gray;
+}
+.user-rank-gray-black .user-rank-1 {
+  background-color: gray;
+}
+.user-rank-gray-black .user-rank-2 {
+  background-color: black;
+}
+
+/*yellow*/
+
+.user-rank-yellow-white .user-rank-1 {
+  background-color: yellow;
+}
+.user-rank-yellow-white .user-rank-2 {
+  background-color: white;
+}
+.user-rank-yellow .user-rank-1,
+.user-rank-yellow .user-rank-2 {
+  background-color: yellow;
+}
+.user-rank-yellow-black .user-rank-1 {
+  background-color: yellow;
+}
+.user-rank-yellow-black .user-rank-2 {
+  background-color: black;
+}
+
+/* orange */
+
+.user-rank-orange-white .user-rank-1 {
+  background-color: orange;
+}
+.user-rank-orange-white .user-rank-2 {
+  background-color: white;
+}
+.user-rank-orange .user-rank-1,
+.user-rank-orange .user-rank-2 {
+  background-color: orange;
+}
+.user-rank-orange-black .user-rank-1 {
+  background-color: orange;
+}
+.user-rank-orange-black .user-rank-2 {
+  background-color: black;
+}
+
+/* green */
+
+.user-rank-green-white .user-rank-1 {
+  background-color: green;
+}
+.user-rank-green-white .user-rank-2 {
+  background-color: white;
+}
+.user-rank-green .user-rank-1,
+.user-rank-green .user-rank-2 {
+  background-color: green;
+}
+.user-rank-green-black .user-rank-1 {
+  background-color: green;
+}
+.user-rank-green-black .user-rank-2 {
+  background-color: black;
 }
