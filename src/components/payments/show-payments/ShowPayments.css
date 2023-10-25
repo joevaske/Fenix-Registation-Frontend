@@ -1,14 +1,7 @@
 .show-payments {
   margin: 20px;
+  padding-top: 50px;
 }
-/* .payments-header,
-.payments-data {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
+.show-payments h2 {
+  margin-top: 60px;
 }
-.payments-header div,
-.payments-data div {
-  width: 10%;
-}
- */

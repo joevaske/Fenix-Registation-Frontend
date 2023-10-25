@@ -1,0 +1,105 @@
+.user-profile {
+}
+
+.user-profile-header {
+  height: 380px;
+  background: linear-gradient(
+    to right,
+    var(--mummysTomb) 0%,
+    var(--independance) 100%
+  );
+  border-radius: 0 0 10px 10px;
+  position: relative;
+}
+
+.user-profile-header .header-text {
+  position: absolute;
+  left: 60px;
+  top: 35%;
+  transform: translateY(-50%);
+}
+
+.user-profile-header .header-text h1 {
+  color: var(--dustStorm);
+}
+
+.user-profile-header .header-text p {
+  color: var(--dustStorm);
+  margin-bottom: 20px;
+}
+.user-profile-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  transform: translateY(-80px);
+  margin: 0 20px;
+}
+.user-profile-body .user-info,
+.user-profile-body .user-image {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.user-profile-body .user-info {
+  flex: 1;
+}
+.user-profile-body p {
+  font-size: 20px;
+  line-height: 30px;
+  padding-left: 20px;
+}
+.user-profile-body p span {
+  display: inline-block;
+  color: var(--independance);
+}
+.user-profile-body .user-info-header {
+  text-transform: uppercase;
+  opacity: 0.7;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #c0c0c0bd;
+}
+.user-profile-body .user-info-body {
+  padding: 20px 0;
+}
+.user-profile-body .user-image {
+  position: relative;
+  min-width: 380px;
+  padding-top: 120px;
+}
+.user-profile-body .user-image img {
+  display: block;
+  position: absolute;
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50%;
+  left: 50%;
+  top: -80px;
+  transform: translateX(-50%);
+}
+.user-profile-body .user-image h2 {
+  text-align: center;
+  color: var(--independance);
+}
+.user-profile-body .user-rank-title {
+  text-transform: capitalize;
+}
+/* Info head */
+.info-head {
+  font-size: 18px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 20px 0;
+  background-color: var(--dustStorm);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 768px) {
+  .user-profile-body {
+    flex-direction: column-reverse;
+  }
+  .user-profile-body .user-image {
+    min-width: 100%;
+  }
+}

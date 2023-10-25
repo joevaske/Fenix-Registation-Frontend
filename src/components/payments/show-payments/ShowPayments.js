@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import './ShowPayments.css';
 
 import Loading from '../../layout/loading/Loading';
+import ShowPaymentsList from './ShowPaymentsList';
 
 const ShowPayments = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const ShowPayments = () => {
       dispatch(getPayments());
       dispatch(fetchUsers());
     }
-  });
+  }, [dispatch]);
 
   const getPaymentUser = (id) => {
     const user = users.find((user) => user.user_id === Number(id));
@@ -39,6 +40,16 @@ const ShowPayments = () => {
       return user.user_fname + ' ' + user.user_lname;
     }
   };
+  var currMonthName = moment().format('MMMM');
+  var prevMonthName = moment().subtract(1, 'month').format('MMMM');
+
+  const lastMonthPayments = payments.filter(
+    (payment) => moment(payment.payment_date).format('MMMM') == currMonthName
+  );
+
+  const prevMonthPayments = payments.filter(
+    (payment) => moment(payment.payment_date).format('MMMM') == prevMonthName
+  );
 
   const onPaymentDelete = (id) => {
     dispatch(deletePayment(id));
@@ -49,65 +60,36 @@ const ShowPayments = () => {
     <div className='show-payments'>
       {isLoading && <Loading />}
       {isSuccess && (
-        <table className='payments users'>
-          <thead className='payments-header'>
-            <tr>
-              <th>Id uplate</th>
-              <th>Korisnik</th>
-              <th>Uplatu izvrsio</th>
-              <th>Tip uplate</th>
-
-              <th>Datum uplate</th>
-              <th>Poslednja izmena</th>
-              <th>Mesec</th>
-              <th>Iznos</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payments &&
-              payments
-                .slice(0)
-                .reverse()
-                .map((payment) => (
-                  <tr className='payments-data' key={payment.payment_id}>
-                    <td>{`${moment(payment.payment_date).format('YYYY-MM')}-${
-                      payment.payment_id
-                    }`}</td>
-                    <td>{getPaymentUser(payment.user_id)}</td>
-                    <td>{getPaymentUser(payment.staff_id)}</td>
-                    <td>{payment.payment_type}</td>
-
-                    <td>
-                      {moment(payment.payment_date).format('DD. MMM YYYY')}
-                    </td>
-                    <td>
-                      {moment(payment.last_update).format('DD. MMM YYYY')}
-                    </td>
-                    <td>{payment.month}</td>
-                    <td>{parseFloat(payment.payment_amount).toFixed(2)}</td>
-                    <td>
-                      <Link
-                        className='btn btn-action'
-                        to={`/update-payment/${payment.payment_id}`}
-                      >
-                        Edit
-                      </Link>
-                    </td>
-                    <td>
-                      {' '}
-                      <button
-                        className='btn btn-warning'
-                        onClick={() => {
-                          onPaymentDelete(payment.payment_id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
+        <>
+          <h2>
+            {' '}
+            Payments in {currMonthName} {moment().year()}.
+          </h2>
+          <ShowPaymentsList
+            getPaymentUser={getPaymentUser}
+            payments={lastMonthPayments}
+            month={currMonthName}
+            users={users}
+            onPaymentDelete={onPaymentDelete}
+          />
+          <h2>
+            Payments in {prevMonthName} {moment().year()}.
+          </h2>
+          <ShowPaymentsList
+            getPaymentUser={getPaymentUser}
+            payments={prevMonthPayments}
+            month={prevMonthName}
+            users={users}
+            onPaymentDelete={onPaymentDelete}
+          />
+          <h2>All Payments</h2>
+          <ShowPaymentsList
+            getPaymentUser={getPaymentUser}
+            payments={payments}
+            users={users}
+            onPaymentDelete={onPaymentDelete}
+          />
+        </>
       )}
       {isError && <p className='error-message'>{message}</p>}
     </div>

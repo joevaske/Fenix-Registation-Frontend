@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import {
   updateUser,
   selectUserById,
-  fetchUsers,
 } from '../../../redux/features/users/usersSlice';
 
 import './UpdateUser.css';
@@ -70,8 +69,15 @@ const UpdateUser = () => {
 
   const handleUpdateImage = (e) => {
     e.preventDefault();
-    console.log(' Image Update');
-    upload();
+
+    if (file.size >= 5120) {
+      alert('File too Big, please select a file less than 5mb');
+    } else if (file < 2048) {
+      alert('File too small, please select a file greater than 2mb');
+    } else {
+      upload();
+      console.log('Image Updated');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -138,14 +144,17 @@ const UpdateUser = () => {
         </div>
         <div className='form-row'>
           <img
-            className='user-image'
+            className='user-image rounded-image'
             src={
               inputs.user_image === ''
                 ? placeholder
                 : `../../../upload/${inputs.image}`
             }
+            alt={`${inputs.fname}-${inputs.lname}`}
           />
-          <label htmlFor='file'>Upload Image:</label>
+          <label htmlFor='file'>
+            Select Image: <br /> - 5MB <br /> 250x250px
+          </label>
           <input
             filename={file}
             /* style={{ display: 'none' }} */
@@ -154,8 +163,12 @@ const UpdateUser = () => {
             name='file'
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <button className='btn' onClick={handleUpdateImage}>
-            Update Image
+          <button
+            style={{ margin: '20px 0 20px 20px', minWidth: '150px' }}
+            className='btn '
+            onClick={handleUpdateImage}
+          >
+            Change Image
           </button>
         </div>
         <div className='form-row'>

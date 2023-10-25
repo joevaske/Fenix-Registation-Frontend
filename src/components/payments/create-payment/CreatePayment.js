@@ -11,6 +11,8 @@ import {
   selectAllUsers,
 } from '../../../redux/features/users/usersSlice';
 
+import './CreatePayment.css';
+
 const CreatePayment = () => {
   const dispatch = useDispatch();
   const date = new Date();
@@ -105,10 +107,12 @@ const CreatePayment = () => {
 
   return (
     <div className='create-payment'>
+      <h2>Create New Payment</h2>
       <form>
         {err && <p className='error-message'>{err}</p>}
-        <div className='fomr-row'>
+        <div className='form-row'>
           <Select
+            className='select-user'
             name='selectUser'
             options={rsOptions}
             placeholder='Select user'
@@ -118,8 +122,9 @@ const CreatePayment = () => {
             isMulti={false}
           />
         </div>
-        <div className='fomr-row'>
+        <div className='form-row'>
           <Select
+            className='select-payment-type'
             name='selectPaymentType'
             options={paymentTypes}
             placeholder='Select payment type'
@@ -129,8 +134,9 @@ const CreatePayment = () => {
             isMulti={false}
           />
         </div>
-        <div className='fomr-row'>
+        <div className='form-row'>
           <Select
+            className='select-payment-month'
             name='selectMonth'
             options={months}
             placeholder='Select month'
@@ -141,7 +147,7 @@ const CreatePayment = () => {
           />
         </div>
 
-        <div className='form-row'>
+        <div className='form-row select-payment-amount'>
           <label htmlFor='payment_amount'>Amount:</label>
           <input
             type='number'

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { PiUser } from 'react-icons/pi';
+import placeholder from '../../../images/placeholder.jpg';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../../redux/features/auth/authSlice';
@@ -24,21 +24,21 @@ const MainMenu = () => {
             <ul>
               <li>
                 <Link to='/users'>Show Users</Link>
-              </li>
+              </li> 
               <li>
                 <Link to='/create-user'>Create User</Link>
               </li>
             </ul>
           </li> */}
 
-          <div className='user'>
+          <div className='menu-user'>
             {!user && (
               <>
                 <li>
                   <Link to='/login'>Login</Link>
                 </li>
                 <li>
-                  <Link to='/register'>Register</Link>
+                  <Link to='/register'>Register </Link>
                 </li>
               </>
             )}
@@ -46,7 +46,15 @@ const MainMenu = () => {
               <>
                 <li className='user-name'>
                   <span>{user.user_fname}</span>
-                  <PiUser className='user-name-icon' />
+                  <img
+                    className='users-list-image-sm'
+                    src={
+                      user.user_image === ''
+                        ? placeholder
+                        : process.env.PUBLIC_URL + '/upload/' + user.user_image
+                    }
+                    alt={`${user.user_fname}-${user.user_lname}`}
+                  />
                 </li>
                 <li>
                   <button className='btn user-logout' onClick={onLogout}>

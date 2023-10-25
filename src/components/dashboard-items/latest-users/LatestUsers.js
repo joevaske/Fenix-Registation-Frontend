@@ -23,7 +23,7 @@ const LatestUsers = () => {
       </div>
       <div className='total-users-body'>
         {users.slice(0, 5).map((user) => (
-          <div className='latest-users-user'>
+          <div className='latest-users-user' key={user.user_id}>
             <div className='latest-user-header'></div>
             <div className='latest-user-body'>
               <div className='latest-user-body-image'>
@@ -34,6 +34,7 @@ const LatestUsers = () => {
                       ? placeholder
                       : `../../../upload/${user.user_image}`
                   }
+                  alt={`${user.user_fname}-${user.user_lname}`}
                 />
               </div>
               <div className='latest-user-body-info'>
@@ -61,7 +62,14 @@ const LatestUsers = () => {
                   {user.user_rank ? user.user_rank : 'white'}
                 </div>
               </div>
-              <div className='latest-user-footer-right'>View profile</div>
+              <div className='latest-user-footer-right'>
+                <Link
+                  className='btn btn-action btn-sm'
+                  to={`/user-profile/${user.user_id}`}
+                >
+                  View profile
+                </Link>
+              </div>
             </div>
           </div>
           /*  <p>

@@ -1,0 +1,83 @@
+.user {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  border-bottom: 1px solid var(--dustStorm);
+}
+.user-image {
+  justify-self: flex-start;
+  padding-top: 7px;
+}
+
+.user p {
+  font-size: 16px;
+  color: var(--independance);
+  font-weight: 500;
+}
+
+.user-name {
+  justify-self: start;
+  width: 20%;
+}
+.user-name h3 {
+  text-align: left;
+  font-weight: 500;
+  color: var(--independance);
+}
+.user-phone {
+  width: 15%;
+}
+.user-email {
+  width: 20%;
+}
+.user .user-rank {
+  justify-self: flex-start;
+  width: 5%;
+}
+.user-status {
+  margin-left: auto;
+  width: 15%;
+  text-align: center;
+}
+.user-action {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 22px;
+  width: 15%;
+}
+
+@media screen and (max-width: 768px) {
+  .user {
+    flex-direction: column;
+    gap: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .user-name {
+    width: 100%;
+  }
+  .user-name h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .user-phone {
+    width: 100%;
+  }
+  .user-email {
+    width: 100%;
+  }
+  .user-rank {
+    width: 100%;
+  }
+  .user-status {
+    width: 100%;
+  }
+  .user-action {
+    width: 100%;
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchUsers,
@@ -10,6 +10,8 @@ import './ShowUsers.css';
 
 import Loading from '../../layout/loading/Loading';
 import placeholder from '../../../images/placeholder.jpg';
+import ShowUsersHeader from './ShowUsersHeader';
+import UsersList from './UsersList';
 
 const ShowUsers = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ const ShowUsers = () => {
   const { users, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.users
   );
+
+  const [searchResults, setSearchResults] = useState(users);
 
   /*   const users = useSelector(selectAllUsers); */
   /*   const usersStatus = useSelector(getUsersStatus);
@@ -26,10 +30,10 @@ const ShowUsers = () => {
     if (!isSuccess) {
       dispatch(fetchUsers());
     }
-    /*  console.log(users); */
-  });
+    setSearchResults(users);
+  }, [users]);
 
-  const onUserdelete = (id) => {
+  const onUserDelete = (id) => {
     /*  axios.delete(`/users/delete-user/${users.user_id}`); */
     dispatch(deleteUser(id));
     alert('Do you really want to delete this user?');
@@ -38,80 +42,15 @@ const ShowUsers = () => {
   return (
     <div className='show-users'>
       {isLoading && <Loading />}
+
+      <ShowUsersHeader users={users} setSearchResults={setSearchResults} />
       {isSuccess && (
-        <table className='users'>
-          <thead>
-            <tr>
-              <th className='sticky-col first-col'>Ime</th>
-              <th className='sticky-col second-col'>Prezime</th>
-              <th>Email</th>
-              <th>Ulica</th>
-              <th>Broj</th>
-              <th>Posta</th>
-              <th>Mesto</th>
-              <th>Broj LK</th>
-              <th>Datum rodjenja</th>
-              <th>Datum pristupa</th>
-              <th>Uloga</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users &&
-              users.map((user) => (
-                <tr className='users-list' key={user.user_id}>
-                  <td className='sticky-col first-col'>
-                    <img
-                      className='users-list-image'
-                      src={
-                        user.user_image === ''
-                          ? placeholder
-                          : process.env.PUBLIC_URL + 'upload/' + user.user_image
-                      }
-                    />{' '}
-                    {/*  <img
-                      src={
-                        process.env.PUBLIC_URL + `/upload/${user.user_image}`
-                      }
-                    /> */}
-                    {user.user_fname}
-                  </td>
-                  <td className='sticky-col second-col'>{user.user_lname}</td>
-                  <td>{user.user_email}</td>
-                  <td>{user.user_street}</td>
-                  <td>{user.user_street_nr}</td>
-                  <td>{user.user_post_nr}</td>
-                  <td>{user.user_living_place}</td>
-                  <td>{user.user_pid}</td>
-                  <td>{user.user_birth_date}</td>
-                  <td>{user.user_access_date}</td>
-                  <td>{user.user_role}</td>
-                  <td>{user.user_status}</td>
-                  <td>
-                    <Link
-                      className='btn btn-action'
-                      to={`/update-user/${user.user_id}`}
-                    >
-                      Edit
-                    </Link>
-                  </td>
-                  <td>
-                    {' '}
-                    <button
-                      className='btn btn-warning'
-                      onClick={() => {
-                        onUserdelete(user.user_id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <UsersList searchResults={searchResults} onUserDelete={onUserDelete} />
       )}
+      {!searchResults.length && (
+        <UsersList searchResults={users} onUserDelete={onUserDelete} />
+      )}
+
       {isError && <p className='error-message'>{message}</p>}
     </div>
   );

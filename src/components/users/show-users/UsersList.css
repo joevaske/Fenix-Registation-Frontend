@@ -1,0 +1,58 @@
+.users-list {
+  background-color: #fff;
+  border-radius: 10px;
+}
+.users-list-header {
+  display: flex;
+  justify-content: flex-start;
+
+  gap: 20px;
+  padding: 20px;
+  align-items: center;
+  text-transform: uppercase;
+  color: var(--mummysTomb);
+  border-bottom: 1px solid var(--mummysTomb);
+  background-color: var(--dustStorm);
+  border-radius: 10px 10px 0 0;
+}
+.users-list-header .image {
+  width: 50px;
+
+  text-align: center;
+}
+.users-list-header .name {
+  width: 18%;
+
+  text-align: center;
+}
+.users-list-header .phone {
+  width: 15%;
+  text-align: center;
+}
+.users-list-header .email {
+  width: 20%;
+
+  text-align: center;
+}
+.users-list-header .rank {
+  width: 5%;
+  text-align: center;
+}
+.users-list-header .status {
+  margin-left: auto;
+  width: 15%;
+  text-align: center;
+}
+.users-list-header .action {
+  justify-self: flex-end;
+  width: 15%;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .users-list {
+    background-color: #ffffff00;
+  }
+  .users-list-header {
+    display: none;
+  }
+}

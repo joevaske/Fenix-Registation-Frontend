@@ -58,9 +58,9 @@ const CreateUser = () => {
       const res = await axios.post('/upload', formData, config);
       setInputs((prev) => ({ ...prev, image: res.data }));
 
-      console.log(file.name);
+      /*    console.log(file.name);
       console.log(inputs);
-      console.log(res.data);
+      console.log(res.data); */
     } catch (err) {
       console.log(err);
     }
@@ -68,8 +68,15 @@ const CreateUser = () => {
 
   const handleAddImage = (e) => {
     e.preventDefault();
-    console.log('Add Image');
-    upload();
+
+    if (file.size >= 5120) {
+      alert('File too Big, please select a file less than 5mb');
+    } else if (file < 2048) {
+      alert('File too small, please select a file greater than 2mb');
+    } else {
+      upload();
+      console.log('Image Added');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -109,12 +116,15 @@ const CreateUser = () => {
         <div className='form-row'>
           {inputs.image && (
             <img
-              className='user-image'
+              className='user-image rounded-image'
               src={`../../../upload/${inputs.image}`}
+              alt={`${inputs.fname}-${inputs.lname}`}
             />
           )}
 
-          <label htmlFor='file'>Upload Image:</label>
+          <label htmlFor='file'>
+            Upload Image <br /> - 5MB <br /> 350x350px
+          </label>
           <input
             filename={file}
             /*   style={{ display: 'none' }} */
@@ -123,7 +133,11 @@ const CreateUser = () => {
             name='file'
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <button className='btn' onClick={handleAddImage}>
+          <button
+            style={{ margin: '20px 0 20px 20px', minWidth: '150px' }}
+            className='btn'
+            onClick={handleAddImage}
+          >
             Add Image
           </button>
         </div>

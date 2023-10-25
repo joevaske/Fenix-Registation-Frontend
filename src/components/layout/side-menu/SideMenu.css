@@ -199,3 +199,16 @@
   border-radius: 0 4px 4px 0;
   box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.2);
 }
+
+/* @media screen and (max-width: 400px) {
+  .side-menu.small {
+    position: fixed;
+    background-color: #fff;
+  }
+
+  .side-menu {
+    position: absolute;
+    background-color: #fff;
+    min-width: 180px;
+  }
+} */

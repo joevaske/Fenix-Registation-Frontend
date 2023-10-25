@@ -12,11 +12,14 @@ const Dashboard = () => {
         <div className='dashboard-overview-users'>
           <TotalUsers />
         </div>
-        <div className='dashboard-overview-latest-users'>
-          <LatestUsers />
-        </div>
+
         <div className='dashboard-overview-payments'>
           <TotalPayments />
+        </div>
+      </div>
+      <div className='dashboard-overview'>
+        <div className='dashboard-overview-latest-users'>
+          <LatestUsers />
         </div>
       </div>
     </div>

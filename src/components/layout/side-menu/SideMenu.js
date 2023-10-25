@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { SiStackhawk, SiDask } from 'react-icons/si';
+import { SiStackhawk } from 'react-icons/si';
 import {
   BsHouseDoor,
   BsChevronLeft,

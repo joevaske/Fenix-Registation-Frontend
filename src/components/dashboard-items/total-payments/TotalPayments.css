@@ -43,3 +43,23 @@
   font-size: 12px;
   text-align: right;
 }
+
+@media screen and (max-width: 768px) {
+  .total-payments {
+    flex-shrink: 0;
+
+    flex-grow: 1;
+  }
+  .total-payments-body {
+    padding: 0px;
+  }
+  .total-payments-body-part-1 {
+    gap: 10px;
+  }
+  .total-payments-body-part-1 h3 {
+    font-size: 28px;
+  }
+  .total-payments-comparation {
+    gap: 10px;
+  }
+}
