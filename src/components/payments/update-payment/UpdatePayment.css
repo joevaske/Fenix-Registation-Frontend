@@ -1,0 +1,38 @@
+.update-payment {
+  padding: 20px;
+}
+.update-payment h2 {
+  margin-bottom: 40px;
+}
+.update-payment .select-user,
+.update-payment .select-payment-type,
+.update-payment .select-payment-month {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .update-payment .select-user,
+  .update-payment .select-payment-type,
+  .update-payment .select-payment-month,
+  .update-payment .select-payment-amount {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .update-payment .select-user,
+  .update-payment .select-payment-type,
+  .update-payment .select-payment-month,
+  .update-payment .select-payment-amount {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1240px) {
+  .update-payment .select-user,
+  .update-payment .select-payment-type,
+  .update-payment .select-payment-month,
+  .update-payment .select-payment-amount {
+    width: 30%;
+  }
+}

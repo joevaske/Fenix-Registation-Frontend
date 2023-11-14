@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../../redux/features/auth/authSlice';
 import './MainMenu.css';
 
+import Button from 'react-bootstrap/Button';
+
 const MainMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,18 +21,6 @@ const MainMenu = () => {
     <div className='main-menu'>
       <nav>
         <ul>
-          {/*    <li>
-            Users
-            <ul>
-              <li>
-                <Link to='/users'>Show Users</Link>
-              </li> 
-              <li>
-                <Link to='/create-user'>Create User</Link>
-              </li>
-            </ul>
-          </li> */}
-
           <div className='menu-user'>
             {!user && (
               <>
@@ -57,7 +47,11 @@ const MainMenu = () => {
                   />
                 </li>
                 <li>
-                  <button className='btn user-logout' onClick={onLogout}>
+                  <button
+                    type='button'
+                    className='btn btn-dark user-logout'
+                    onClick={onLogout}
+                  >
                     <pre>Logout</pre>
                     <IoLogOutOutline />
                   </button>

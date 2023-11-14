@@ -20,8 +20,9 @@ const SearchBar = ({ data, setSearchResults }) => {
   return (
     <header>
       <form onSubmit={handleSubmit} className='search-bar'>
-        <div className='form-row'>
+        <div className='form-row form-group'>
           <input
+            className='form-control'
             type='text'
             id='search'
             name='search'

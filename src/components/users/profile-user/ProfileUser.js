@@ -50,7 +50,10 @@ const ProfileUser = () => {
           <h1>Hello {inputs.fname}</h1>
           <p>Welcome to your profile page</p>
 
-          <Link className='btn btn-action' to={`/update-user/${user.user_id}`}>
+          <Link
+            className='btn btn-secondary'
+            to={`/update-user/${user.user_id}`}
+          >
             Edit Profile
           </Link>
         </div>

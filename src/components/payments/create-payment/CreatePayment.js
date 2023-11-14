@@ -2,14 +2,8 @@ import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  addNewPayment,
-  getPayments,
-} from '../../../redux/features/payments/paymentsSlice';
-import {
-  fetchUsers,
-  selectAllUsers,
-} from '../../../redux/features/users/usersSlice';
+import { addNewPayment } from '../../../redux/features/payments/paymentsSlice';
+import { selectAllUsers } from '../../../redux/features/users/usersSlice';
 
 import './CreatePayment.css';
 
@@ -157,7 +151,11 @@ const CreatePayment = () => {
             onChange={handleChange}
           />
         </div>
-        <button className='btn' onClick={handleSubmit}>
+        <button
+          className='btn btn-primary'
+          type='button'
+          onClick={handleSubmit}
+        >
           Make Payment!
         </button>
       </form>

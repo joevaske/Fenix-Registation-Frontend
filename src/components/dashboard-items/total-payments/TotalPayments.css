@@ -46,9 +46,6 @@
 
 @media screen and (max-width: 768px) {
   .total-payments {
-    flex-shrink: 0;
-
-    flex-grow: 1;
   }
   .total-payments-body {
     padding: 0px;

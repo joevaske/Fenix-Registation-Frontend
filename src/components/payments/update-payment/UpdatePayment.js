@@ -138,13 +138,15 @@ const UpdatePayment = () => {
   };
 
   return (
-    <div className='create-payment'>
+    <div className='update-payment'>
       {isLoading && <Loading />}
+      <h2>Update Payment</h2>
       {isSuccess && (
         <form>
           {err && <p className='error-message'>{err}</p>}
-          <div className='fomr-row'>
+          <div className='form-row'>
             <Select
+              className='select-user'
               name='selectUser'
               options={rsOptions}
               placeholder={getPaymentUser(payment.user_id)}
@@ -154,8 +156,9 @@ const UpdatePayment = () => {
               isMulti={false}
             />
           </div>
-          <div className='fomr-row'>
+          <div className='form-row'>
             <Select
+              className='select-payment-type'
               name='selectPaymentType'
               options={paymentTypes}
               placeholder={payment.payment_type}
@@ -165,8 +168,9 @@ const UpdatePayment = () => {
               isMulti={false}
             />
           </div>
-          <div className='fomr-row'>
+          <div className='form-row'>
             <Select
+              className='select-payment-month'
               name='selectMonth'
               options={months}
               placeholder={payment.month}
@@ -177,7 +181,7 @@ const UpdatePayment = () => {
             />
           </div>
 
-          <div className='form-row'>
+          <div className='form-row select-payment-amount'>
             <label htmlFor='payment_amount'>Amount:</label>
             <input
               type='number'
@@ -188,7 +192,7 @@ const UpdatePayment = () => {
               placeholder={payment.payment_amount.toFixed(2)}
             />
           </div>
-          <button className='btn' onClick={onPaymentUpdate}>
+          <button className='btn btn-primary' onClick={onPaymentUpdate}>
             Update Payment!
           </button>
         </form>

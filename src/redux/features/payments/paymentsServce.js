@@ -16,6 +16,14 @@ const fetchPayments = async () => {
   return response.data;
 };
 
+// Get payments
+
+const fetchPaymentsUser = async () => {
+  const response = await axios.get(API_URL + `/payment-user/`);
+
+  return response.data;
+};
+
 // Update payment
 
 const editPayment = async (payment) => {
@@ -47,6 +55,7 @@ const paymentsService = {
   createPayment,
   editPayment,
   removePayment,
+  fetchPaymentsUser,
 };
 
 export default paymentsService;

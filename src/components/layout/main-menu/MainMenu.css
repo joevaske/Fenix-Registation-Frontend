@@ -16,7 +16,7 @@
   );
   color: white;
   border-bottom: 1px solid var(--independance);
-  box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 3px 2px 1px rgba(0, 0, 0, 0.1); */
 }
 .logo {
   margin-right: 20px;
@@ -44,7 +44,9 @@
   list-style: none;
   list-style-type: none;
 }
-
+.main-menu nav ul {
+  margin-bottom: 0px;
+}
 .main-menu nav ul li {
   position: relative;
   margin-left: 20px;
@@ -117,6 +119,10 @@
 }
 .main-menu .user-logout pre {
   font-size: 14px;
+  margin-bottom: 0px;
+}
+.main-menu .user-logout svg {
+  transform: translateY(1px);
 }
 @media screen and (max-width: 768px) {
   .logo {

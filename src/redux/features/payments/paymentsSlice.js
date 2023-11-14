@@ -1,8 +1,9 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import paymentsServce from './paymentsServce';
 
 const initialState = {
   payments: [],
+  paymentsUser: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -25,6 +26,16 @@ export const getPayments = createAsyncThunk(
   async () => {
     try {
       return await paymentsServce.fetchPayments();
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+export const getPeymentsUser = createAsyncThunk(
+  'payments/getPeymentsUser',
+  async () => {
+    try {
+      return await paymentsServce.fetchPaymentsUser();
     } catch (err) {
       return err.message;
     }
@@ -82,6 +93,21 @@ export const paymentsSlice = createSlice({
         state.payments = null;
         state.message = action.payload;
       })
+      .addCase(getPeymentsUser.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(getPeymentsUser.fulfilled, (state, action) => {
+        state.paymentsUser = action.payload;
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getPeymentsUser.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isError = true;
+        state.paymentsUser = null;
+        state.message = action.payload;
+      })
       .addCase(addNewPayment.pending, (state) => {
         state.isLoading = true;
         state.isSuccess = false;
@@ -92,7 +118,6 @@ export const paymentsSlice = createSlice({
         const newPayment = action.meta.arg;
         const newValue = { ...newPayment, payment_id: action.payload.insertId };
         state.payments.push(newValue);
-
         state.isLoading = false;
         state.isSuccess = true;
       })
@@ -107,6 +132,7 @@ export const paymentsSlice = createSlice({
       })
       .addCase(deletePayment.fulfilled, (state, action) => {
         /*  console.log(current(state.payments)); */
+
         const index = state.payments.findIndex(
           (payment) => payment.payment_id === action.meta.arg
         );

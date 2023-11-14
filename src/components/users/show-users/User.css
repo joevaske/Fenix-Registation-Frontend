@@ -1,11 +1,3 @@
-.user {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 20px;
-  gap: 20px;
-  border-bottom: 1px solid var(--dustStorm);
-}
 .user-image {
   justify-self: flex-start;
   padding-top: 7px;
@@ -18,13 +10,14 @@
 }
 
 .user-name {
-  justify-self: start;
-  width: 20%;
+  /*   justify-self: start;
+  width: 20%; */
 }
 .user-name h3 {
   text-align: left;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--independance);
+  font-size: 20px;
 }
 .user-phone {
   width: 15%;
@@ -43,41 +36,27 @@
 }
 .user-action {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 10px;
   font-size: 22px;
-  width: 15%;
+  /*  width: 15%; */
 }
-
+.user-action a svg {
+  transform: translateY(-2px);
+}
 @media screen and (max-width: 768px) {
-  .user {
-    flex-direction: column;
-    gap: 5px;
-    background-color: #fff;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-
-  .user-name {
-    width: 100%;
-  }
-  .user-name h3 {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .user-phone {
-    width: 100%;
-  }
-  .user-email {
-    width: 100%;
-  }
-  .user-rank {
-    width: 100%;
-  }
-  .user-status {
-    width: 100%;
-  }
   .user-action {
     width: 100%;
+    justify-content: center;
   }
+}
+
+/* New code */
+
+.user-item {
+  display: flex;
+  align-items: center;
+}
+.user-item:hover {
+  background-color: red;
 }
