@@ -48,11 +48,11 @@ const TotalPayments = () => {
           <h3>={amount.toLocaleString()}</h3>
         </div>
         <div className='total-payments-comparation'>
-          <button className='btn'>
+          <button className='btn btn-success'>
             <PiChartLineUpLight />
             <h4>{lastMonthPayments.length}</h4>
           </button>
-          <button className='btn'>
+          <button className='btn btn-success'>
             <PiChartLineUpLight />
             <h4>={lastMonthAmount.toLocaleString()}</h4>
           </button>
@@ -63,8 +63,6 @@ const TotalPayments = () => {
           Payments in {currentMonthName}
         </p>
       </div>
-
-      {console.log(payments)}
     </div>
   );
 };

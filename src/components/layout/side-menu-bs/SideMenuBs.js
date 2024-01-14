@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../../redux/features/auth/authSlice';
 import { BsHouseDoor } from 'react-icons/bs';
-import { PiUsersThreeBold, PiMoneyLight } from 'react-icons/pi';
+import { PiUsersThree, PiMoneyLight, PiUserCircle } from 'react-icons/pi';
 
 import './SideMenuBs.css';
 
@@ -46,7 +46,7 @@ const SideMenuBs = () => {
                   to={`/user-profile/${user.user_id}`}
                   className='sidebar-link'
                 >
-                  <PiUsersThreeBold /> Profile
+                  <PiUserCircle /> Profile
                 </Link>
               </li>
             ) : (
@@ -63,7 +63,7 @@ const SideMenuBs = () => {
                 aria-controls='pages'
                 onClick={handleNavCollapse}
               >
-                <PiUsersThreeBold /> Users
+                <PiUsersThree /> Users
               </a>
               <ul
                 id='pages'
@@ -84,6 +84,7 @@ const SideMenuBs = () => {
                 </li>
               </ul>
             </li>
+
             <li className='sidebar-item'>
               <a
                 href='#'

@@ -49,57 +49,80 @@ const RegisterForm = () => {
   }
   return (
     <div className='register-form'>
-      <h1>
+      <h2 className='text-center mb-5'>
         Welcome to Fenix BJJ Team
         <br />
         Register Here
-      </h1>
+      </h2>
       <form>
-        <div className='form-row'>
-          <label htmlFor='fname'>First Name: </label>
-          <input
-            type='text'
-            id='fname'
-            name='fname'
-            required
-            onChange={handleChange}
-          />
+        <div className='row'>
+          <div className='col-12 '>
+            <div className='form-floating mb-3 '>
+              <input
+                type='text'
+                className='form-control'
+                id='fname'
+                name='fname'
+                placeholder='Radivoje'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='fname'>First Name:</label>
+            </div>
+          </div>
         </div>
-        <div className='form-row'>
-          <label htmlFor='lname'>Last Name:</label>
-          <input
-            type='text'
-            id='lname'
-            name='lname'
-            required
-            onChange={handleChange}
-          />
+        <div className='row'>
+          <div className='col-12 '>
+            <div className='form-floating mb-3 '>
+              <input
+                type='text'
+                className='form-control'
+                id='lname'
+                name='lname'
+                placeholder='Radivoje'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='lname'>Last Name:</label>
+            </div>
+          </div>
         </div>
-        <div className='form-row'>
-          <label htmlFor='email'>Email:</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            required
-            autoComplete='off'
-            onChange={handleChange}
-          />
+        <div className='row'>
+          <div className='col-12'>
+            <div className='form-floating mb-3 '>
+              <input
+                type='email'
+                className='form-control'
+                id='email'
+                name='email'
+                placeholder='email@gmail.com'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='email'>Email:</label>
+            </div>
+          </div>
         </div>
-        <div className='form-row'>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='text'
-            id='password'
-            name='password'
-            autoComplete='off'
-            required
-            onChange={handleChange}
-          />
+        <div className='row'>
+          <div className='col-12 '>
+            <div className='form-floating mb-0 '>
+              <input
+                type='password'
+                className='form-control'
+                id='password'
+                name='password'
+                autoComplete='off'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='password'>Password:</label>
+            </div>
+          </div>
         </div>
+
         <div className='form-button'>
           <button
-            className='btn btn-action'
+            className='btn btn-primary'
             type='button'
             onClick={handleSubmit}
           >

@@ -1,7 +1,7 @@
-.user-image {
+/* .user-image {
   justify-self: flex-start;
   padding-top: 7px;
-}
+} */
 
 .user p {
   font-size: 16px;
@@ -25,10 +25,10 @@
 .user-email {
   width: 20%;
 }
-.user .user-rank {
+/* .user .user-rank {
   justify-self: flex-start;
   width: 5%;
-}
+} */
 .user-status {
   margin-left: auto;
   width: 15%;

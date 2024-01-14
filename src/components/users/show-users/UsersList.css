@@ -1,8 +1,41 @@
 .users-list {
-  background-color: #fff;
+  background-color: #f0f0f0;
   border-radius: 10px;
 }
-.users-list-header {
+
+.user {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.user-name,
+.user-phone,
+.user-email,
+.rank-user,
+.user-status,
+.user-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.user-action {
+  gap: 5px;
+}
+.user-name h4 {
+  text-align: left;
+  font-weight: 400;
+  color: var(--independance);
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 1290px) {
+  .users-list-heading {
+    display: none !important;
+  }
+  .user-action {
+    justify-content: flex-end;
+  }
+}
+/* .users-list-header {
   display: flex;
   justify-content: flex-start;
 
@@ -55,4 +88,4 @@
   .users-list-header {
     display: none;
   }
-}
+} */

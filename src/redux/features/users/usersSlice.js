@@ -120,9 +120,10 @@ export const usersSlice = createSlice({
       .addCase(addNewUser.fulfilled, (state, action) => {
         state.message = action.payload;
         state.isSuccess = false;
-        const newUSer = action.meta.arg;
+        //state.user = action.payload;
+        /*   const newUSer = action.meta.arg;
         const newValue = { ...newUSer, user_id: action.payload.insertId };
-        state.users.push(newValue);
+        state.users.push(newValue); */
 
         state.isLoading = false;
         state.isSuccess = true;

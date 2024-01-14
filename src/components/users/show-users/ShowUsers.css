@@ -6,6 +6,13 @@
   background-color: rgba(194, 207, 178, 0.5);
 }
 
+.users-tab .nav-link {
+  color: var(--mummysTomb);
+}
+.users-tab .nav-link:hover {
+  color: var(--independance);
+}
+
 /* List image */
 .users-list-image {
   width: 50px;
@@ -18,4 +25,17 @@
   height: 30px;
   border-radius: 50%;
   display: inline-block;
+}
+
+@media screen and (max-width: 1290px) {
+  .users-tab {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .users-tab .nav-link,
+  .users-tab .nav-link.active {
+    width: 100%;
+    text-align: left;
+  }
 }

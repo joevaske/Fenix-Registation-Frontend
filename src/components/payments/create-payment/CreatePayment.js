@@ -96,7 +96,7 @@ const CreatePayment = () => {
     e.preventDefault();
     dispatch(addNewPayment(inputs));
 
-    navigate('/show-payments');
+    navigate('/');
   };
 
   return (

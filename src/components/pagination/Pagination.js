@@ -1,7 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
 
-const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
+const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
+
+  const [active, setActive] = useState(false);
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pageNumbers.push(i);
@@ -9,10 +11,19 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
 
   return (
     <nav>
-      <ul className='pagination'>
+      <ul className='pagination my-3 '>
         {pageNumbers.map((number) => (
-          <li key={number} className='page-item'>
-            <span onClick={() => paginate(number)} className='page-link'>
+          <li
+            key={number}
+            className={`page-item ${
+              currentPage === number ? 'active' : 'inactive'
+            } `}
+          >
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => paginate(number)}
+              className='page-link '
+            >
               {number}
             </span>
           </li>

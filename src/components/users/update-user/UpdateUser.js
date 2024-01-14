@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { validateUser } from '../../validation/UserValidation';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from 'axios';
 import {
   updateUser,
@@ -45,6 +51,10 @@ const UpdateUser = () => {
   const [err, setError] = useState(null);
   const [file, setFile] = useState(null);
 
+  const notify = () => {
+    toast.warn(err, { position: toast.POSITION.TOP_RIGHT });
+  };
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -86,22 +96,33 @@ const UpdateUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (inputs.image === '') {
-      if (
-        window.confirm('User image is not uploaded. Do you want to proceed?')
-      ) {
-        dispatch(updateUser(inputs));
-        navigate('/users');
-      }
+    const validationResult = validateUser(inputs);
+    if (validationResult !== false) {
+      setError(validationResult);
+      notify();
     } else {
-      dispatch(updateUser(inputs));
-      navigate('/users');
+      setError(null);
+      if (inputs.image === '') {
+        if (
+          window.confirm('User image is not uploaded. Do you want to proceed?')
+        ) {
+          dispatch(updateUser(inputs));
+          navigate('/');
+        }
+      } else {
+        dispatch(updateUser(inputs));
+        navigate('/');
+      }
     }
   };
 
   return (
     <div className='update-user container'>
-      {err && <p className='error-message'>{err}</p>}
+      {/*     {err && <p className='error-message'>{err}</p>} */}
+      {/*  {!err ? '' : toast(err)} */}
+
+      <ToastContainer />
+
       <form encType='multipart/form-data'>
         <div className='row'>
           <div className='col-12 col-md-6'>
@@ -329,7 +350,9 @@ const UpdateUser = () => {
                 value={inputs.status}
                 onChange={handleChange}
               >
-                {/* <option value=''>Select member status</option> */}
+                {inputs.status === '' && (
+                  <option value=''>Select member status</option>
+                )}
 
                 <option value='active'>Active</option>
                 <option value='inactive'>Inactive</option>

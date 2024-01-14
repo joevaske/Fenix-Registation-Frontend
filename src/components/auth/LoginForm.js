@@ -25,9 +25,9 @@ const LoginForm = () => {
     if (isError) {
       setError(message);
     }
-    if (user) {
+    /*  if (user) {
       navigate('/');
-    }
+    } */
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -51,36 +51,45 @@ const LoginForm = () => {
   return (
     <div className='login-form'>
       <h1>
-        Welcome to Fenix BJJ Team
-        <br />
-        Login
+        Welcome to Fenix BJJ Team!
+        <span>Login</span>
       </h1>
       <form>
-        <div className='form-row'>
-          <label htmlFor='email'>Email:</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            required
-            onChange={handleChange}
-          />
+        <div className='row'>
+          <div className='col-12'>
+            <div className='form-floating mb-3 '>
+              <input
+                type='email'
+                className='form-control'
+                id='email'
+                name='email'
+                placeholder='email@gmail.com'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='email'>Email:</label>
+            </div>
+          </div>
         </div>
-        <div className='form-row'>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='text'
-            id='password'
-            name='password'
-            required
-            onChange={handleChange}
-            autoComplete='off'
-          />
+        <div className='row'>
+          <div className='col-12 '>
+            <div className='form-floating mb-0 '>
+              <input
+                type='password'
+                className='form-control'
+                id='password'
+                name='password'
+                autoComplete='off'
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor='password'>Password:</label>
+            </div>
+          </div>
         </div>
-
         <div className='form-button'>
           <button
-            className='btn btn-action'
+            className='btn btn-primary'
             type='button'
             onClick={handleSubmit}
           >

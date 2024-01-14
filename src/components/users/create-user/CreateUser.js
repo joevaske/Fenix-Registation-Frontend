@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewUser } from '../../../redux/features/users/usersSlice';
+import { addNewUser, reset } from '../../../redux/features/users/usersSlice';
+
+import { validateUser } from '../../validation/UserValidation';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './CreateUser.css';
 import axios from 'axios';
 
@@ -42,6 +48,10 @@ const CreateUser = () => {
   const [err, setError] = useState(null);
   const [file, setFile] = useState(null);
 
+  const notify = () => {
+    toast.warn(err, { position: toast.POSITION.TOP_RIGHT });
+  };
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -58,10 +68,6 @@ const CreateUser = () => {
       formData.append('file', file);
       const res = await axios.post('/upload', formData, config);
       setInputs((prev) => ({ ...prev, image: res.data }));
-
-      /*    console.log(file.name);
-      console.log(inputs);
-      console.log(res.data); */
     } catch (err) {
       console.log(err);
     }
@@ -84,20 +90,33 @@ const CreateUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (inputs.image === '') {
-      if (window.confirm('Image not added confirm')) {
-        dispatch(addNewUser(inputs));
-        navigate('/users');
-      }
+    const validationResult = validateUser(inputs);
+
+    if (validationResult !== false) {
+      setError(validationResult);
+      notify();
     } else {
-      dispatch(addNewUser(inputs));
-      navigate('/users');
+      setError(null);
+      if (inputs.image === '') {
+        if (
+          window.confirm('User image is not uploaded. Do you want to proceed?')
+        ) {
+          dispatch(addNewUser(inputs));
+          navigate('/');
+        }
+      } else {
+        dispatch(addNewUser(inputs));
+        navigate('/');
+      }
     }
   };
+  /*   useEffect(() => {
+    notify();
+  }, [err]); */
 
   return (
     <div className='create-user container '>
-      {err && <p className='error-message'>{err}</p>}
+      <ToastContainer />
       <form encType='multipart/form-data'>
         <div className='row'>
           <div className='col-12 col-md-6'>
@@ -107,7 +126,7 @@ const CreateUser = () => {
                 className='form-control'
                 id='fname'
                 name='fname'
-                placeholder='Radivoje'
+                placeholder='First Name'
                 onChange={handleChange}
               />
               <label htmlFor='fname'>First Name:</label>
@@ -120,7 +139,7 @@ const CreateUser = () => {
                 className='form-control'
                 id='lname'
                 name='lname'
-                placeholder='Radovanovic'
+                placeholder='Last Name'
                 onChange={handleChange}
               />
               <label htmlFor='lname'>Last Name:</label>
@@ -189,7 +208,7 @@ const CreateUser = () => {
           </div>
         </div>
         <div className='row'>
-          <div className='col-12 col-lg-5'>
+          <div className='col-12 col-lg-4'>
             <div className='form-floating mb-3 '>
               <input
                 type='text'
@@ -202,7 +221,7 @@ const CreateUser = () => {
               <label htmlFor='street'>Street/Address:</label>
             </div>
           </div>
-          <div className='col-6 col-lg-1'>
+          <div className='col-6 col-lg-2'>
             <div className='form-floating mb-3 '>
               <input
                 type='text'

@@ -43,7 +43,7 @@ const TotalUsers = () => {
         <div className='total-users-statistics'>
           <h4>{users.length}</h4>
           <div className='total-users-statistics-comparation'>
-            <button className='btn'>
+            <button className='btn btn-success'>
               <PiChartLineUpLight />
               {lastMonthUsers.length}
             </button>
@@ -53,9 +53,6 @@ const TotalUsers = () => {
       <div className='total-users-footer'>
         <p className='comparation-explanation'>Users in {currentMonthName}</p>
       </div>
-
-      {console.log(users.length)}
-      {console.log(lastMonthUsers.length)}
     </div>
   );
 };
