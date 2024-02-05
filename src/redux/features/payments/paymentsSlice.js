@@ -167,4 +167,7 @@ export const selectAllPayments = (state) => state.payments.payments;
 export const selectPaymentByID = (state, paymentId) =>
   state.payments.payments.find((payment) => payment.payment_id === paymentId);
 
+export const selectPaymentByUserId = (state, userId) =>
+  state.payments.payments.find((payment) => payment.user_id === userId);
+
 export default paymentsSlice.reducer;

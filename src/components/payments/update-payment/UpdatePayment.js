@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { CurrencyFormat } from '../../helpers/CurrencyFormat';
+
+import moment from 'moment';
 
 import Select from 'react-select';
 import {
-  deletePayment,
   getPayments,
-  reset,
   selectPaymentByID,
   updatePayment,
 } from '../../../redux/features/payments/paymentsSlice';
@@ -44,7 +45,9 @@ const UpdatePayment = () => {
     payment_amount: payment.payment_amount,
     payment_date: payment.payment_date,
     last_update: payment.last_update,
+    exp_date: payment.exp_date,
     month: payment.month,
+    note: payment.note,
   });
 
   const paymentTypes = [
@@ -109,6 +112,35 @@ const UpdatePayment = () => {
   const handleSelectPaymentType = (data) => {
     if (data) {
       setInputs((prev) => ({ ...prev, payment_type: data.value }));
+
+      if (data.value === 'month') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(inputs.payment_date).year(),
+            moment(inputs.payment_date).month() + 1,
+            moment(inputs.payment_date).date()
+          ).toString(),
+        }));
+      } else if (data.value === '3 - moonth') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(inputs.payment_date).year(),
+            moment(inputs.payment_date).month() + 3,
+            moment(inputs.payment_date).date()
+          ).toString(),
+        }));
+      } else if (data.value === 'year') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(inputs.payment_date).year(),
+            moment(inputs.payment_date).month() + 12,
+            moment(inputs.payment_date).date()
+          ).toString(),
+        }));
+      }
     } else {
       setInputs((prev) => ({ ...prev, payment_type: '' }));
     }
@@ -123,6 +155,43 @@ const UpdatePayment = () => {
     // console.log(data);
   };
 
+  const handleSelectPaymentDate = (data) => {
+    if (data) {
+      setInputs((prev) => ({ ...prev, payment_date: data.target.value }));
+
+      if (inputs.payment_type === 'month') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(data.target.value).year(),
+            moment(data.target.value).month() + 1,
+            moment(data.target.value).date()
+          ).toString(),
+        }));
+      } else if (inputs.payment_type === '3 - moonth') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(data.target.value).year(),
+            moment(data.target.value).month() + 3,
+            moment(data.target.value).date()
+          ).toString(),
+        }));
+      } else if (inputs.payment_type === 'year') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            moment(data.target.value).year(),
+            moment(data.target.value).month() + 12,
+            moment(data.target.value).date()
+          ).toString(),
+        }));
+      }
+    } else {
+      setInputs((prev) => ({ ...prev, payment_date: '' }));
+    }
+  };
+
   useEffect(() => {
     if (!isSuccess) {
       dispatch(fetchUsers());
@@ -134,7 +203,7 @@ const UpdatePayment = () => {
     e.preventDefault();
 
     dispatch(updatePayment(inputs));
-    navigate('/show-payments');
+    navigate('/');
   };
 
   return (
@@ -144,7 +213,7 @@ const UpdatePayment = () => {
       {isSuccess && (
         <form>
           {err && <p className='error-message'>{err}</p>}
-          <div className='form-row'>
+          <div className='form-row '>
             <Select
               className='select-user'
               name='selectUser'
@@ -168,6 +237,39 @@ const UpdatePayment = () => {
               isMulti={false}
             />
           </div>
+          <div className='mb-0 text-info'>
+            Payment Date :{' '}
+            <span>
+              {moment(inputs.payment_date).format('DD. MM. yyyy. hh:mm')}
+            </span>
+          </div>
+
+          <div className='form-floating payment-date mb-3'>
+            <input
+              className='form-control'
+              type='date'
+              id='payment_date'
+              name='payment_date'
+              onChange={handleSelectPaymentDate}
+            />
+            <label htmlFor='payment_date'>Change Date:</label>
+          </div>
+          <div className='form-floating payment-exp mb-3'>
+            <input
+              id='exp_date'
+              name='exp_date'
+              className='form-control text-warning '
+              type='text'
+              value={moment(inputs.exp_date).format('DD. MM. yyyy. hh:mm')}
+              readOnly
+            />
+            <span>
+              {moment(inputs.exp_date) - moment() < 0 && (
+                <p className='text-danger text-end fw-bold'>Expired</p>
+              )}
+            </span>
+            <label htmlFor='exp_date'>Exp Date:</label>
+          </div>
           <div className='form-row'>
             <Select
               className='select-payment-month'
@@ -180,7 +282,6 @@ const UpdatePayment = () => {
               isMulti={false}
             />
           </div>
-
           <div className='form-row select-payment-amount'>
             <label htmlFor='payment_amount'>Amount:</label>
             <input
@@ -189,8 +290,18 @@ const UpdatePayment = () => {
               id='payment_amount'
               name='payment_amount'
               onChange={handleChange}
-              placeholder={payment.payment_amount.toFixed(2)}
+              className='text-end'
+              placeholder={CurrencyFormat(payment.payment_amount)}
             />
+          </div>
+          <div className='form-row payment-note mb-5'>
+            <textarea
+              className='form-control'
+              id='note'
+              name='note'
+              onChange={handleChange}
+              placeholder={payment.note}
+            ></textarea>
           </div>
           <button className='btn btn-primary' onClick={onPaymentUpdate}>
             Update Payment!

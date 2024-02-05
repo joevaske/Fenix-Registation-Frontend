@@ -37,7 +37,9 @@ const editPayment = async (payment) => {
     payment_amount: payment.payment_amount,
     payment_date: payment.payment_date,
     last_update: payment.last_update,
+    exp_date: payment.exp_date,
     month: payment.month,
+    note: payment.note,
   };
   response.data.payment = sendPayment;
   return response;

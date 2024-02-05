@@ -16,7 +16,6 @@ import Loading from '../../layout/loading/Loading';
 import ShowUsersHeader from './ShowUsersHeader';
 import UsersList from './UsersList';
 
-import SearchBar from '../../search-bar/SearchBar';
 import Pagination from '../../pagination/Pagination';
 
 const ShowUsers = () => {
@@ -25,14 +24,15 @@ const ShowUsers = () => {
   const { users, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.users
   );
-
-  const [searchResults, setSearchResults] = useState(users);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+
+  const [searchUsers, setSearchUsers] = useState(users);
+
   const [searchCompetitors, setSearchCompetitors] = useState(
     users.filter((user) => user.user_role === 'competitor')
   );
+
   const [searchTrainers, setSearchTrainers] = useState(
     users.filter((user) => user.user_role === 'trainer')
   );
@@ -40,9 +40,7 @@ const ShowUsers = () => {
     users.filter((user) => user.user_role === 'admin')
   );
   const [searchActiveMembers, setSearchActiveMembers] = useState(
-    users.filter(
-      (user) => user.user_role === 'member' && user.user_status === 'active'
-    )
+    users.filter((user) => user.user_status === 'active')
   );
   const [searchInactiveMembers, setSearchInactiveMembers] = useState(
     users.filter((user) => user.user_status === 'inactive')
@@ -50,7 +48,7 @@ const ShowUsers = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [searchResults]);
+  }, [searchUsers]);
 
   const competitors = users.filter((user) => user.user_role === 'competitor');
   const activeCompetitors = users.filter(
@@ -58,9 +56,7 @@ const ShowUsers = () => {
   );
   const members = users.filter((user) => user.user_role == 'member');
 
-  const activeMembers = users.filter(
-    (user) => user.user_role == 'member' && user.user_status == 'active'
-  );
+  const activeMembers = users.filter((user) => user.user_status == 'active');
   const inactiveMembers = users.filter(
     (user) => user.user_status == 'inactive'
   );
@@ -83,15 +79,66 @@ const ShowUsers = () => {
   const indexofLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexofLastUser - itemsPerPage;
 
-  /*   let currentUsers;
+  let currentUsers;
+  let currentActiveUsers;
+  let currentInactiveUsers;
+  let currentCompetitors;
+  let currentTrainers;
+  let currentAdmins;
 
-  if (!searchResults.length) {
+  if (!searchUsers.length) {
     currentUsers = users.slice(indexOfFirstUser, indexofLastUser);
   }
-  if (searchResults.length) {
-    currentUsers = searchResults.slice(indexOfFirstUser, indexofLastUser);
-  } */
+  if (searchUsers.length) {
+    currentUsers = searchUsers.slice(indexOfFirstUser, indexofLastUser);
+  }
 
+  if (!searchActiveMembers.length) {
+    currentActiveUsers = activeMembers.slice(indexOfFirstUser, indexofLastUser);
+  }
+  if (searchActiveMembers.length) {
+    currentActiveUsers = searchActiveMembers.slice(
+      indexOfFirstUser,
+      indexofLastUser
+    );
+  }
+
+  if (!searchInactiveMembers.length) {
+    currentInactiveUsers = inactiveMembers.slice(
+      indexOfFirstUser,
+      indexofLastUser
+    );
+  }
+  if (searchInactiveMembers.length) {
+    currentInactiveUsers = searchInactiveMembers.slice(
+      indexOfFirstUser,
+      indexofLastUser
+    );
+  }
+
+  if (!searchCompetitors.length) {
+    currentCompetitors = competitors.slice(indexOfFirstUser, indexofLastUser);
+  }
+  if (searchCompetitors.length) {
+    currentCompetitors = searchCompetitors.slice(
+      indexOfFirstUser,
+      indexofLastUser
+    );
+  }
+
+  if (!searchTrainers.length) {
+    currentTrainers = trainers.slice(indexOfFirstUser, indexofLastUser);
+  }
+  if (searchTrainers.length) {
+    currentTrainers = searchTrainers.slice(indexOfFirstUser, indexofLastUser);
+  }
+
+  if (!searchAdmins.length) {
+    currentAdmins = admins.slice(indexOfFirstUser, indexofLastUser);
+  }
+  if (searchAdmins.length) {
+    currentAdmins = searchAdmins.slice(indexOfFirstUser, indexofLastUser);
+  }
   // Change page
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -108,16 +155,16 @@ const ShowUsers = () => {
           <ShowUsersHeader
             heading='All Members'
             data={users}
-            setSearchResults={setSearchResults}
+            setSearchResults={setSearchUsers}
             analitycsHeading='Total Active Members'
             analitycsData={users}
             analitycsActiveData={activeUsers}
           />
 
-          <UsersList users={searchResults} onUserDelete={onUserDelete} />
+          <UsersList users={currentUsers} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
-            totalItems={searchResults.length}
+            totalItems={searchUsers.length}
             paginate={paginate}
             currentPage={currentPage}
           />
@@ -132,7 +179,7 @@ const ShowUsers = () => {
             analitycsActiveData={activeMembers}
           />
 
-          <UsersList users={searchActiveMembers} onUserDelete={onUserDelete} />
+          <UsersList users={currentActiveUsers} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
             totalItems={searchActiveMembers.length}
@@ -151,10 +198,7 @@ const ShowUsers = () => {
             analitycsActiveData={inactiveMembers}
           />
 
-          <UsersList
-            users={searchInactiveMembers}
-            onUserDelete={onUserDelete}
-          />
+          <UsersList users={currentInactiveUsers} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
             totalItems={searchInactiveMembers.length}
@@ -172,7 +216,7 @@ const ShowUsers = () => {
             analitycsActiveData={activeCompetitors}
           />
 
-          <UsersList users={searchCompetitors} onUserDelete={onUserDelete} />
+          <UsersList users={currentCompetitors} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
             totalItems={searchCompetitors.length}
@@ -190,7 +234,7 @@ const ShowUsers = () => {
             analitycsActiveData={activeTrainers}
           />
 
-          <UsersList users={searchTrainers} onUserDelete={onUserDelete} />
+          <UsersList users={currentTrainers} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
             totalItems={searchTrainers.length}
@@ -208,7 +252,7 @@ const ShowUsers = () => {
             analitycsActiveData={admins}
           />
 
-          <UsersList users={searchAdmins} onUserDelete={onUserDelete} />
+          <UsersList users={currentAdmins} onUserDelete={onUserDelete} />
           <Pagination
             itemsPerPage={itemsPerPage}
             totalItems={searchAdmins.length}

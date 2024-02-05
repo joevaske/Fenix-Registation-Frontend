@@ -1,12 +1,19 @@
 .update-payment {
   padding: 20px;
 }
+
+.update-payment .form-floating > label {
+  z-index: 0 !important;
+}
 .update-payment h2 {
   margin-bottom: 40px;
 }
 .update-payment .select-user,
 .update-payment .select-payment-type,
-.update-payment .select-payment-month {
+.update-payment .select-payment-month,
+.update-payment .payment-note,
+.update-payment .payment-date,
+.update-payment .payment-exp {
   width: 100%;
 }
 
@@ -14,7 +21,10 @@
   .update-payment .select-user,
   .update-payment .select-payment-type,
   .update-payment .select-payment-month,
-  .update-payment .select-payment-amount {
+  .update-payment .select-payment-amount,
+  .update-payment .payment-note,
+  .update-payment .payment-date,
+  .update-payment .payment-exp {
     width: 50%;
   }
 }
@@ -23,7 +33,10 @@
   .update-payment .select-user,
   .update-payment .select-payment-type,
   .update-payment .select-payment-month,
-  .update-payment .select-payment-amount {
+  .update-payment .select-payment-amount,
+  .update-payment .payment-note,
+  .update-payment .payment-date,
+  .update-payment .payment-exp {
     width: 40%;
   }
 }
@@ -32,7 +45,10 @@
   .update-payment .select-user,
   .update-payment .select-payment-type,
   .update-payment .select-payment-month,
-  .update-payment .select-payment-amount {
+  .update-payment .select-payment-amount,
+  .update-payment .payment-note,
+  .update-payment .payment-date,
+  .update-payment .payment-exp {
     width: 30%;
   }
 }

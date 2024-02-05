@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addNewPayment } from '../../../redux/features/payments/paymentsSlice';
 import { selectAllUsers } from '../../../redux/features/users/usersSlice';
 
+import moment from 'moment';
+
 import './CreatePayment.css';
 
 const CreatePayment = () => {
@@ -16,6 +18,8 @@ const CreatePayment = () => {
   const { payments, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.payments
   );
+  /*   const [expDate, setExpDate] = useState(date); */
+
   const [inputs, setInputs] = useState({
     user_id: '',
     staff_id: user.user_id,
@@ -23,8 +27,17 @@ const CreatePayment = () => {
     payment_amount: null,
     payment_date: date.toString(),
     last_update: date.toString(),
+    exp_date: '',
     month: '',
+    note: '',
   });
+
+  /*  const [expDate, setExpDate] = useState(date); */
+  /* const expDate = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  ); */
 
   const paymentTypes = [
     { value: 'month', label: 'month' },
@@ -78,10 +91,42 @@ const CreatePayment = () => {
   const handleSelectPaymentType = (data) => {
     if (data) {
       setInputs((prev) => ({ ...prev, payment_type: data.value }));
+
+      if (data.value === 'month') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            date.getFullYear(),
+            date.getMonth() + 1,
+            date.getDate()
+          ).toString(),
+        }));
+      } else if (data.value === '3 - moonth') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            date.getFullYear(),
+            date.getMonth() + 3,
+            date.getDate()
+          ).toString(),
+        }));
+      } else if (data.value === 'year') {
+        setInputs((prev) => ({
+          ...prev,
+          exp_date: new Date(
+            date.getFullYear(),
+            date.getMonth() + 12,
+            date.getDate()
+          ).toString(),
+        }));
+      }
     } else {
       setInputs((prev) => ({ ...prev, payment_type: '' }));
     }
   };
+
+  /// Ovde izvan petlje treba dodati hendler za exp date
+
   const handleSelectMonth = (data) => {
     if (data) {
       setInputs((prev) => ({ ...prev, month: data.value }));
@@ -97,6 +142,7 @@ const CreatePayment = () => {
     dispatch(addNewPayment(inputs));
 
     navigate('/');
+    console.log(inputs);
   };
 
   return (
@@ -104,6 +150,7 @@ const CreatePayment = () => {
       <h2>Create New Payment</h2>
       <form>
         {err && <p className='error-message'>{err}</p>}
+
         <div className='form-row'>
           <Select
             className='select-user'
@@ -128,6 +175,14 @@ const CreatePayment = () => {
             isMulti={false}
           />
         </div>
+        <div className='form-row payment-exp'>
+          <input
+            className='form-control'
+            type='text'
+            value={moment(inputs.exp_date).format('DD. MM. yyyy. hh:mm')}
+            readOnly
+          />
+        </div>
         <div className='form-row'>
           <Select
             className='select-payment-month'
@@ -150,6 +205,16 @@ const CreatePayment = () => {
             name='payment_amount'
             onChange={handleChange}
           />
+        </div>
+
+        <div className='form-row payment-note mb-5'>
+          <textarea
+            className='form-control'
+            placeholder='Add Note here'
+            id='note'
+            name='note'
+            onChange={handleChange}
+          ></textarea>
         </div>
         <button
           className='btn btn-primary'

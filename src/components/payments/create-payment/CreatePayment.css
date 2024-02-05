@@ -6,7 +6,9 @@
 }
 .create-payment .select-user,
 .create-payment .select-payment-type,
-.create-payment .select-payment-month {
+.create-payment .select-payment-month,
+.create-payment .payment-note,
+.create-payment .payment-exp {
   width: 100%;
 }
 
@@ -14,7 +16,9 @@
   .create-payment .select-user,
   .create-payment .select-payment-type,
   .create-payment .select-payment-month,
-  .create-payment .select-payment-amount {
+  .create-payment .select-payment-amount,
+  .create-payment .payment-note,
+  .create-payment .payment-exp {
     width: 50%;
   }
 }
@@ -23,7 +27,9 @@
   .create-payment .select-user,
   .create-payment .select-payment-type,
   .create-payment .select-payment-month,
-  .create-payment .select-payment-amount {
+  .create-payment .select-payment-amount,
+  .create-payment .payment-note,
+  .create-payment .payment-exp {
     width: 40%;
   }
 }
@@ -32,7 +38,9 @@
   .create-payment .select-user,
   .create-payment .select-payment-type,
   .create-payment .select-payment-month,
-  .create-payment .select-payment-amount {
+  .create-payment .select-payment-amount,
+  .create-payment .payment-note,
+  .create-payment .payment-exp {
     width: 30%;
   }
 }

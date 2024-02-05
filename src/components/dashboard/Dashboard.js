@@ -5,6 +5,8 @@ import TotalPayments from '../dashboard-items/total-payments/TotalPayments';
 import LatestUsers from '../dashboard-items/latest-users/LatestUsers';
 import InactiveUsers from '../dashboard-items/inactive-users/InactiveUsers';
 import LatestPayments from '../dashboard-items/latest-payments/LatestPayments';
+import ExpiredPayments from '../dashboard-items/expired-payments/ExpiredPayments';
+import DebthUsers from '../dashboard-items/debth-users/DebthUsers';
 
 const Dashboard = () => {
   return (
@@ -25,8 +27,19 @@ const Dashboard = () => {
         <div className='col-12 col-md-4'>
           <TotalPayments />
         </div>
-        <div className='col-12 col-md-8'>
+        <div className='col-12 col-md-8'>{/*  <LatestPayments /> */}</div>
+      </div>
+      <div className='row'>
+        <div className='col-12 col-md-6'>
           <LatestPayments />
+        </div>
+        <div className='col-12 col-md-6'>
+          <ExpiredPayments />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-12'>
+          <DebthUsers />
         </div>
       </div>
       <div className='dashboard-overview'>

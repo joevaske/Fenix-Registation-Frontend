@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiEdit, FiDelete } from 'react-icons/fi';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
+import { PiBookmarkSimple } from 'react-icons/pi';
 import './PaymentList.css';
 
 import moment from 'moment';
@@ -152,7 +153,7 @@ const PaymentList = ({ payments, getPaymentUser, onPaymentDelete }) => {
           className='col-12 col-md-2 bg-light p-2 text-start sorter'
           onClick={() => sortingDate('last_update')}
         >
-          Last Update:
+          Expiration Date:
           <span className=''>
             <VscTriangleUp
               onClick={handleSorterClick(13)}
@@ -195,6 +196,13 @@ const PaymentList = ({ payments, getPaymentUser, onPaymentDelete }) => {
               <div className='col-12 col-md-2  p-2 text-start payment-user'>
                 {' '}
                 {payment.user_fname} {payment.user_lname}
+                {payment.note && (
+                  <span>
+                    <Link to={`/update-payment/${payment.payment_id}`}>
+                      <PiBookmarkSimple />
+                    </Link>
+                  </span>
+                )}
               </div>
               <div className='col-12 col-md-1  p-2 text-start payment-done-by'>
                 {' '}
@@ -211,8 +219,11 @@ const PaymentList = ({ payments, getPaymentUser, onPaymentDelete }) => {
                 {' '}
                 {payment.payment_type}
               </div>
-              <div className='col-12 col-md-2  p-2 text-start payment-last-update'>
-                {moment(payment.last_update).format('DD. MM. yyyy. hh:mm')}
+              <div className='col-12 col-md-2  p-2 text-start payment-exp-date'>
+                {moment(payment.exp_date).format('DD. MM. yyyy. hh:mm')}
+                {moment() > moment(payment.exp_date) && (
+                  <span className='badge text-bg-danger'>expired</span>
+                )}
               </div>
               <div className='col-12 col-md-1 px-3 text-center payment-amount'>
                 {payment.payment_amount.toLocaleString()}

@@ -1,0 +1,22 @@
+.payments-by-user {
+  padding: 20px;
+}
+.single-user-payments-wrap {
+  background-color: #ececec;
+  border-bottom: 1px solid var(--mummysTomb);
+  margin-bottom: 10px;
+  padding: 20px;
+}
+.single-user-payments-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.single-user-payments {
+  padding: 20px;
+}
+.single-user-payments div {
+  padding-left: 2px;
+  padding-right: 2px;
+}

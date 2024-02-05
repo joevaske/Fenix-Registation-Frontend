@@ -112,6 +112,11 @@ const SideMenuBs = () => {
                   </NavLink>
                 </li>
                 <li className='sidebar-item'>
+                  <NavLink to='/payments-by-user' className='sidebar-link'>
+                    Payments By User
+                  </NavLink>
+                </li>
+                <li className='sidebar-item'>
                   <NavLink to='/create-payment' className='sidebar-link'>
                     New Payment
                   </NavLink>

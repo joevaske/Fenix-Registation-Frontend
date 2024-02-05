@@ -17,6 +17,7 @@ import ProfileUser from './components/users/profile-user/ProfileUser';
 import PaymentsUser from './components/users/payments-user/PaymentsUser';
 import SideMenuBs from './components/layout/side-menu-bs/SideMenuBs';
 import UserPayments from './components/users/user-payments/UserPayments';
+import PaymentsByUser from './components/payments-by-user/PaymentsByUser';
 
 const Layout = () => {
   return (
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: '/update-payment/:id',
         element: <UpdatePayment />,
+      },
+      {
+        path: '/payments-by-user',
+        element: <PaymentsByUser />,
       },
     ],
   },

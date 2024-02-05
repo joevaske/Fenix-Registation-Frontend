@@ -25,12 +25,29 @@
 }
 .payment-user {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 5px;
   font-size: 14px;
   font-weight: 500;
+}
+
+.payment-user span {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  position: relative;
+  justify-self: end;
+}
+
+.payment-user span svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .payment-done-by {
@@ -47,6 +64,13 @@
   font-size: 14px;
   display: flex;
   align-items: center;
+}
+
+.payment-exp-date {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .payment-id,
 .payment-month {
