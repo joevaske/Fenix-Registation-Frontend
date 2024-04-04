@@ -62,7 +62,7 @@ const LatestPayments = () => {
             <div className='col-1'>
               {' '}
               <Link
-                className='btn btn-primary tooltip-custom'
+                className='btn btn-primary btn-sm tooltip-custom'
                 to={`/update-payment/${payment.payment_id}`}
               >
                 <FiEdit />

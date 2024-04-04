@@ -165,7 +165,7 @@ const ShowPayments = () => {
                 </div>
               </div>
 
-              {!searchResults.length ? (
+              {!searchResultsCurrentMonth.length ? (
                 <>
                   <PaymentList
                     getPaymentUser={getPaymentUser}
@@ -225,7 +225,7 @@ const ShowPayments = () => {
                   </div>
                 </div>
               </div>
-              {!searchResults.length ? (
+              {!searchResultsLastMonth.length ? (
                 <>
                   <PaymentList
                     getPaymentUser={getPaymentUser}
@@ -276,7 +276,7 @@ const ShowPayments = () => {
                   <div className='col-12 col-md-5 offset-md-1 text-end'>
                     Total Payments:{' '}
                     <strong>
-                      {paymentsUser.length} |{totalPayments.toLocaleString(2)}
+                      {paymentsUser.length} | {totalPayments.toLocaleString(2)}
                     </strong>
                   </div>
                 </div>

@@ -82,8 +82,8 @@ const UpdateUser = () => {
     e.preventDefault();
 
     if (file) {
-      if (file.size >= 10240) {
-        alert('File too Big, please select a file less than 5mb');
+      if (file.size >= 50240) {
+        alert('File too Big, please select a file less than 10mb');
       } else if (file < 2048) {
         alert('File too small, please select a file greater than 2mb');
       } else {

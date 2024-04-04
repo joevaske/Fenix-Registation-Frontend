@@ -3,7 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../../redux/features/auth/authSlice';
 import { BsHouseDoor } from 'react-icons/bs';
-import { PiUsersThree, PiMoneyLight, PiUserCircle } from 'react-icons/pi';
+import {
+  PiUsersThree,
+  PiMoneyLight,
+  PiUserCircle,
+  PiChatDots,
+} from 'react-icons/pi';
 
 import './SideMenuBs.css';
 
@@ -13,8 +18,11 @@ const SideMenuBs = () => {
   const [toggleMenu, setToggeMenu] = useState(true);
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [isNavCollapsedUsers, setIsNavCollapsedUsers] = useState(true);
+  const [isNavCollapsedPosts, setIsNavCollapsedPosts] = useState(true);
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+  const handleNavCollapsePosts = () =>
+    setIsNavCollapsedPosts(!isNavCollapsedPosts);
   const handleNavCollapseUsers = () =>
     setIsNavCollapsedUsers(!isNavCollapsedUsers);
 
@@ -27,7 +35,6 @@ const SideMenuBs = () => {
   };
   return (
     <div className='sidebar-wrapper'>
-      {console.log(user)}
       <aside id='sidebar' className={toggleMenu ? 'collapsed' : ''}>
         <div className='h-100'>
           <div className='sidebar-logo'>
@@ -35,12 +42,7 @@ const SideMenuBs = () => {
           </div>
           <ul className='sidebar-nav'>
             <li className='sidebar-header'>Users</li>
-            <li className='sidebar-item'>
-              <Link to='/' className='sidebar-link'>
-                <BsHouseDoor /> Dashboard
-              </Link>
-            </li>
-            {user ? (
+            {user && (
               <li className='sidebar-item'>
                 <Link
                   to={`/user-profile/${user.user_id}`}
@@ -49,80 +51,131 @@ const SideMenuBs = () => {
                   <PiUserCircle /> Profile
                 </Link>
               </li>
+            )}
+
+            {user && (
+              <li className='sidebar-item'>
+                <Link to='/' className='sidebar-link'>
+                  <BsHouseDoor /> Dashboard
+                </Link>
+              </li>
+            )}
+            {user && user.user_role === 'admin' ? (
+              <li className='sidebar-item'>
+                <a
+                  href='#'
+                  className={`${
+                    isNavCollapsed ? 'collapsed' : ''
+                  } sidebar-link `}
+                  data-bs-toggle='collapse'
+                  data-bs-target='#pages'
+                  aria-expanded='false'
+                  aria-controls='pages'
+                  onClick={handleNavCollapse}
+                >
+                  <PiUsersThree /> Users
+                </a>
+                <ul
+                  id='pages'
+                  className={`${
+                    isNavCollapsed ? 'collapse' : ''
+                  } sidebar-dropdown list-unstyled sub-menu`}
+                  data-bs-parent='#sidebar'
+                >
+                  <li className='sidebar-item '>
+                    <NavLink to='/users' className='sidebar-link'>
+                      Show Users
+                    </NavLink>
+                  </li>
+                  <li className='sidebar-item '>
+                    <NavLink to='/create-user' className='sidebar-link'>
+                      Create User
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
             ) : (
               ''
             )}
-
-            <li className='sidebar-item'>
-              <a
-                href='#'
-                className={`${isNavCollapsed ? 'collapsed' : ''} sidebar-link `}
-                data-bs-toggle='collapse'
-                data-bs-target='#pages'
-                aria-expanded='false'
-                aria-controls='pages'
-                onClick={handleNavCollapse}
-              >
-                <PiUsersThree /> Users
-              </a>
-              <ul
-                id='pages'
-                className={`${
-                  isNavCollapsed ? 'collapse' : ''
-                } sidebar-dropdown list-unstyled sub-menu`}
-                data-bs-parent='#sidebar'
-              >
-                <li className='sidebar-item '>
-                  <NavLink to='/users' className='sidebar-link'>
-                    Show Users
-                  </NavLink>
-                </li>
-                <li className='sidebar-item '>
-                  <NavLink to='/create-user' className='sidebar-link'>
-                    Create User
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-
-            <li className='sidebar-item'>
-              <a
-                href='#'
-                className={`${
-                  isNavCollapsedUsers ? 'collapsed' : ''
-                } sidebar-link `}
-                data-bs-toggle='collapse'
-                data-bs-target='#users'
-                aria-expanded='false'
-                aria-controls='pages'
-                onClick={handleNavCollapseUsers}
-              >
-                <PiMoneyLight /> Payments
-              </a>
-              <ul
-                id='users'
-                className={`${
-                  isNavCollapsedUsers ? 'collapse' : ''
-                } sidebar-dropdown list-unstyled sub-menu`}
-                data-bs-parent='#sidebar'
-              >
-                <li className='sidebar-item'>
-                  <NavLink to='/show-payments' className='sidebar-link'>
-                    Show Payments
-                  </NavLink>
-                </li>
-                <li className='sidebar-item'>
-                  <NavLink to='/payments-by-user' className='sidebar-link'>
-                    Payments By User
-                  </NavLink>
-                </li>
-                <li className='sidebar-item'>
-                  <NavLink to='/create-payment' className='sidebar-link'>
-                    New Payment
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
+            {user && user.user_role === 'admin' ? (
+              <li className='sidebar-item'>
+                <a
+                  href='#'
+                  className={`${
+                    isNavCollapsedUsers ? 'collapsed' : ''
+                  } sidebar-link `}
+                  data-bs-toggle='collapse'
+                  data-bs-target='#users'
+                  aria-expanded='false'
+                  aria-controls='pages'
+                  onClick={handleNavCollapseUsers}
+                >
+                  <PiMoneyLight /> Payments
+                </a>
+                <ul
+                  id='users'
+                  className={`${
+                    isNavCollapsedUsers ? 'collapse' : ''
+                  } sidebar-dropdown list-unstyled sub-menu`}
+                  data-bs-parent='#sidebar'
+                >
+                  <li className='sidebar-item'>
+                    <NavLink to='/show-payments' className='sidebar-link'>
+                      Show Payments
+                    </NavLink>
+                  </li>
+                  <li className='sidebar-item'>
+                    <NavLink to='/payments-by-user' className='sidebar-link'>
+                      Payments By User
+                    </NavLink>
+                  </li>
+                  <li className='sidebar-item'>
+                    <NavLink to='/create-payment' className='sidebar-link'>
+                      New Payment
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+            ) : (
+              ''
+            )}
+            {user && user.user_role === 'admin' ? (
+              <li className='sidebar-item'>
+                <a
+                  href='#'
+                  className={`${
+                    isNavCollapsedPosts ? 'collapsed' : ''
+                  } sidebar-link `}
+                  data-bs-toggle='collapse'
+                  data-bs-target='#users'
+                  aria-expanded='false'
+                  aria-controls='pages'
+                  onClick={handleNavCollapsePosts}
+                >
+                  <PiChatDots /> Posts
+                </a>
+                <ul
+                  id='posts'
+                  className={`${
+                    isNavCollapsedPosts ? 'collapse' : ''
+                  } sidebar-dropdown list-unstyled sub-menu`}
+                  data-bs-parent='#sidebar'
+                >
+                  <li className='sidebar-item'>
+                    <NavLink to='/posts' className='sidebar-link'>
+                      Show Posts
+                    </NavLink>
+                  </li>
+                  <li className='sidebar-item'>
+                    <NavLink to='/create-post' className='sidebar-link'>
+                      Crete Post
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+            ) : (
+              ''
+            )}
           </ul>
         </div>
       </aside>

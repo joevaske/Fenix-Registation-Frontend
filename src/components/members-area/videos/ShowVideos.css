@@ -1,0 +1,19 @@
+/* .show-videos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+} */
+.show-videos a {
+  display: block;
+
+  border-radius: 8px;
+  /*   background-color: var(--dustStorm); */
+}
+.video-thumb {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+}
+.video-title {
+  font-size: 14px;
+  padding: 10px 5px;
+}

@@ -19,8 +19,6 @@ const ProfileUser = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-
-    /*  console.log(users); */
   }, []);
 
   const [inputs, setInputs] = useState({

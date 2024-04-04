@@ -110,9 +110,6 @@ const CreateUser = () => {
       }
     }
   };
-  /*   useEffect(() => {
-    notify();
-  }, [err]); */
 
   return (
     <div className='create-user container '>

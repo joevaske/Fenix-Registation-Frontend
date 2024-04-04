@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import { PiBookmarkSimple } from 'react-icons/pi';
 import { getPeymentsUser } from '../../../redux/features/payments/paymentsSlice';
+import { fetchUsers } from '../../../redux/features/users/usersSlice';
 import moment from 'moment';
 import { CurrencyFormat } from '../../helpers/CurrencyFormat';
 
@@ -11,16 +12,17 @@ import './ExpiredPayments.css';
 
 const ExpiredPayments = () => {
   const dispatch = useDispatch();
-  const { paymentsUser, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.payments
-  );
+  const { paymentsUser } = useSelector((state) => state.payments);
+  const { users } = useSelector((state) => state.users);
   useEffect(() => {
     dispatch(getPeymentsUser());
+    dispatch(fetchUsers());
   }, []);
 
   const expiredPayments = paymentsUser.filter(
     (payment) => moment() > moment(payment.exp_date)
   );
+
   return (
     <div className='container expired-payments'>
       <div className='expired-payments-header'>
@@ -34,6 +36,7 @@ const ExpiredPayments = () => {
         <div className='col-2 text-end'>Amount</div>
         <div className='col-1'>View </div>
       </div>
+
       {expiredPayments &&
         expiredPayments.slice(0, 10).map((payment) => (
           <div key={payment.payment_id} className='row mb-1'>
@@ -74,6 +77,7 @@ const ExpiredPayments = () => {
             </div>
           </div>
         ))}
+
       <div className='row'>
         <div className='col mt-2 text-end'>
           <Link className='btn btn-primary btn-sm' to='/show-payments'>
