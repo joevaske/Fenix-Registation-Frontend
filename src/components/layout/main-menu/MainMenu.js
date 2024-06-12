@@ -1,27 +1,74 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
 import placeholder from '../../../images/placeholder.jpg';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../../redux/features/auth/authSlice';
 import './MainMenu.css';
 
+import { getPosts } from '../../../redux/features/posts/postsSlice';
+
 import Button from 'react-bootstrap/Button';
+import { BsInfoCircle } from 'react-icons/bs';
 
 const MainMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
+  const { posts } = useSelector((state) => state.posts);
+
+  /* const userPosts = posts.filter((post) => post.post_to === user.user_id); */
+
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
     navigate('/login');
   };
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, []);
   return (
     <div className='main-menu'>
       <nav>
         <ul>
           <div className='menu-user'>
+            {user && (
+              <>
+                <li>
+                  <Dropdown data-bs-theme='dark' className='messages-dropdown'>
+                    <Dropdown.Toggle
+                      id='dropdown-button-dark-example1'
+                      variant='secondary'
+                    >
+                      <BsInfoCircle className='mb-1' />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu drop='start'>
+                      <Dropdown.Item href='#/action-1' active>
+                        Messages
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+
+                      {posts
+                        .filter((post) => post.post_to === user.user_id)
+                        .map((post) => (
+                          <Dropdown.Item
+                            key={post.post_id}
+                            href={`/show-post/${post.post_id}`}
+                          >
+                            {post.post_title}
+                          </Dropdown.Item>
+                        ))}
+                      <Dropdown.Item href='#/action-4'>Message 1</Dropdown.Item>
+                      <Dropdown.Item href='#/action-4'>Message 2</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </li>
+              </>
+            )}
             {!user && (
               <>
                 <li>

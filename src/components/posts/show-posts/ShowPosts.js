@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import placeholder1920x1080 from '../../../images/placeholder-1920x1080.jpg';
+
 import { FiEdit, FiDelete } from 'react-icons/fi';
 
 import {
@@ -63,13 +65,21 @@ const ShowPosts = () => {
                       : 'Unknown Author'}
                   </span>
                 </p>
-                <img
-                  className='img-fluid'
-                  src={`../../../upload/${post.post_image}`}
-                  alt={`${post.post_title}`}
-                />
-                <p className='display-6'>{post.post_content}</p>
 
+                {post.post_image ? (
+                  <img
+                    className='img-fluid'
+                    src={`../../../upload/${post.post_image}`}
+                    alt={`${post.post_title}`}
+                  />
+                ) : (
+                  <img
+                    className='img-fluid'
+                    src={placeholder1920x1080}
+                    alt={`${post.post_title}`}
+                  />
+                )}
+                <p className='display-6 mt-3'>{post.post_content}</p>
                 <div className='d-flex justify-content-end '>
                   <Link
                     className='btn btn-sm btn-primary d-inline-block'

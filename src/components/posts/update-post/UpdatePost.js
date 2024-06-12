@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { updatePost } from '../../../redux/features/posts/postsSlice';
+import { selectAllUsers } from '../../../redux/features/users/usersSlice';
 
 import moment from 'moment';
 import axios from 'axios';
@@ -13,6 +14,7 @@ const UpdatePost = () => {
   const { user } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
   const { types } = useSelector((state) => state.postTypes);
+  const users = useSelector(selectAllUsers);
   const navigate = useNavigate();
 
   const id = params.id;
@@ -21,13 +23,14 @@ const UpdatePost = () => {
 
   const [post, setPost] = useState({
     post_id: Number(singlePost.post_id),
-    post_author: singlePost.post_author,
+    post_author: Number(singlePost.post_author),
     post_date: singlePost.post_date,
     post_title: singlePost.post_title,
     post_content: singlePost.post_content,
     post_status: singlePost.post_status,
     post_type: singlePost.post_type,
     post_image: singlePost.post_image,
+    post_to: singlePost.post_to,
   });
 
   const [file, setFile] = useState(null);
@@ -73,6 +76,7 @@ const UpdatePost = () => {
   };
   return (
     <div>
+      {console.log(post)}
       <div className='create-post container'>
         <form encType='multipart/form-data'>
           <div className='row mt-5'>
@@ -90,6 +94,7 @@ const UpdatePost = () => {
                 <label htmlFor='post_title'>Post Title:</label>
               </div>
             </div>
+            <div className='col-12'>{post.post_author}</div>
           </div>
           <div className='row'>
             <div className='col-12 col-md-4'>
@@ -111,6 +116,26 @@ const UpdatePost = () => {
                 <label htmlFor='post_type'>Select Post Type:</label>
               </div>
             </div>
+            {post.post_type === 'personal' && (
+              <div className='col-12 col-md-4'>
+                <div className='form-floating mb-3 '>
+                  <select
+                    className='form-select'
+                    id='post_to'
+                    name='post_to'
+                    value={post.post_to}
+                    onChange={handleChange}
+                  >
+                    {users.map((user) => (
+                      <option key={user.user_id} value={user.user_id}>
+                        {user.user_fname} {user.user_lname}
+                      </option>
+                    ))}
+                  </select>
+                  <label htmlFor='post_to'>Select Recepient:</label>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className='row'>

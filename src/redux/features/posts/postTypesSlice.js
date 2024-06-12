@@ -17,6 +17,10 @@ const types = [
     id: 4,
     type: 'todo',
   },
+  {
+    id: 5,
+    type: 'personal',
+  },
 ];
 
 const initialState = {

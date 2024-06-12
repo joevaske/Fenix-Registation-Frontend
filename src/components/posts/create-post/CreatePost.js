@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-import moment from 'moment';
-
 import { addNewPost, reset } from '../../../redux/features/posts/postsSlice';
+import { selectAllUsers } from '../../../redux/features/users/usersSlice';
 
 import axios from 'axios';
-
+import moment from 'moment';
 const CreatePost = () => {
   const dispatch = useDispatch();
   const { types } = useSelector((state) => state.postTypes);
   const { user } = useSelector((state) => state.auth);
+  const users = useSelector(selectAllUsers);
 
   const navigate = useNavigate();
 
@@ -31,6 +30,7 @@ const CreatePost = () => {
     post_status: 'active',
     post_type: 'news',
     post_image: '',
+    post_to: '',
   });
 
   const [err, setError] = useState(null);
@@ -118,6 +118,26 @@ const CreatePost = () => {
               <label htmlFor='post_type'>Select Post Type:</label>
             </div>
           </div>
+          {post.post_type === 'personal' && (
+            <div className='col-12 col-md-4'>
+              <div className='form-floating mb-3 '>
+                <select
+                  className='form-select'
+                  id='post_to'
+                  name='post_to'
+                  aria-label='Select Recepient'
+                  onChange={handleChange}
+                >
+                  {users.map((user) => (
+                    <option key={user.user_id} value={user.user_id}>
+                      {user.user_fname} {user.user_lname}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor='post_to'>Select Recepient:</label>
+              </div>
+            </div>
+          )}
         </div>
         <div className='row'>
           <div className='col-4 offset-4 text-center mb-3'>

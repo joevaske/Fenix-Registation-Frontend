@@ -30,6 +30,7 @@ const editPost = async (post) => {
     post_status: post.post_status,
     post_type: post.post_type,
     post_image: post.post_image,
+    post_to: post.post_to,
   };
 
   response.data.post = sendPost;

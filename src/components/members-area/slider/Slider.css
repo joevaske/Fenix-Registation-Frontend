@@ -1,3 +1,20 @@
 .slider {
   margin-bottom: 20px;
 }
+.slider .carousel-item {
+  height: 500px;
+}
+
+.slider .carousel-item img {
+  position: absolute;
+  object-fit: cover;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  min-height: 500px;
+}
+
+.slider .carousel-caption {
+  /*  right: 20px;
+  left: 20px; */
+}

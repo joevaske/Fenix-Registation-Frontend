@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../../redux/features/auth/authSlice';
 import { fetchUsers } from '../../redux/features/users/usersSlice';
 
-import { validateLogin } from '../validation/LoginValidation';
-
 import './LoginForm.css';
 
 import Loading from '../layout/loading/Loading';
@@ -18,12 +16,23 @@ const LoginForm = () => {
     (state) => state.auth
   );
 
-  const [err, setError] = useState(null);
-
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (isError) {
+      setError(message);
+    }
+    /*  if (user) {
+      navigate('/');
+    } */
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const [err, setError] = useState(null);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,26 +40,10 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const validationResult = validateLogin(inputs);
-
-    if (validationResult !== false) {
-      setError(validationResult);
-    } else {
-      setError(null);
-      dispatch(login(inputs));
-      dispatch(fetchUsers());
-
-      navigate('/');
-    }
+    dispatch(login(inputs));
+    dispatch(fetchUsers());
+    err === null && navigate('/');
   };
-
-  useEffect(() => {
-    if (isError) {
-      setError(message);
-    }
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   if (isLoading) {
     return <Loading />;
@@ -104,7 +97,7 @@ const LoginForm = () => {
           </button>
         </div>
 
-        {err && <p className='error-message text-warning'>{err}</p>}
+        {err && <p className='error-message'>{err}</p>}
         <p>
           Don't you have an account? <Link to='/register'>Register Now</Link>
         </p>

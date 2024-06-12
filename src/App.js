@@ -23,6 +23,7 @@ import HomePageMembers from './components/members-area/members-pages/HomePageMem
 import Posts from './components/posts/Posts';
 import CreatePost from './components/posts/create-post/CreatePost';
 import UpdatePost from './components/posts/update-post/UpdatePost';
+import ShowPost from './components/posts/show-post/ShowPost';
 
 const Layout = () => {
   return (
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: '/update-post/:id',
         element: <UpdatePost />,
+      },
+      {
+        path: '/show-post/:id',
+        element: <ShowPost />,
       },
     ],
   },

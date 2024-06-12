@@ -3,7 +3,10 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addNewPayment } from '../../../redux/features/payments/paymentsSlice';
-import { selectAllUsers } from '../../../redux/features/users/usersSlice';
+import {
+  fetchUsers,
+  selectAllUsers,
+} from '../../../redux/features/users/usersSlice';
 
 import moment from 'moment';
 
@@ -31,6 +34,10 @@ const CreatePayment = () => {
     month: '',
     note: '',
   });
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
 
   /*  const [expDate, setExpDate] = useState(date); */
   /* const expDate = new Date(
