@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '../../layout/loading/Loading';
 import { getPosts } from '../../../redux/features/posts/postsSlice';
@@ -6,8 +6,6 @@ import { getPosts } from '../../../redux/features/posts/postsSlice';
 import Carousel from 'react-bootstrap/Carousel';
 
 import './Slider.css';
-
-import moment from 'moment';
 
 const Slider = () => {
   const dispatch = useDispatch();

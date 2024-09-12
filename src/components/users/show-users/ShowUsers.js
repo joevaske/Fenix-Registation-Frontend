@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchUsers,
   deleteUser,
-  reset,
 } from '../../../redux/features/users/usersSlice';
 
 import Tab from 'react-bootstrap/Tab';
@@ -21,7 +19,7 @@ import Pagination from '../../pagination/Pagination';
 const ShowUsers = () => {
   const dispatch = useDispatch();
 
-  const { users, isLoading, isError, isSuccess, message } = useSelector(
+  const { users, isLoading, isError, message } = useSelector(
     (state) => state.users
   );
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +46,7 @@ const ShowUsers = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [searchUsers]);
+  }, [dispatch, searchUsers]);
 
   const competitors = users.filter((user) => user.user_role === 'competitor');
   const activeCompetitors = users.filter(

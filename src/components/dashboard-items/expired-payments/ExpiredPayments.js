@@ -24,26 +24,26 @@ const ExpiredPayments = () => {
   );
 
   return (
-    <div className='container expired-payments'>
+    <div className=' expired-payments'>
       <div className='expired-payments-header'>
         <h6 className='mb-4'>Expired Payments</h6>
       </div>
       <div className='row pb-3'>
-        <div className='col-2 '>Id</div>
-        <div className='col-3'>Member</div>
+        <div className='col-2 d-none d-sm-block'>Id</div>
+        <div className='col-7 col-sm-3 '>Member</div>
 
-        <div className='col-4'>Exp Date</div>
-        <div className='col-2 text-end'>Amount</div>
-        <div className='col-1'>View </div>
+        <div className='col-4 d-none d-sm-block'>Exp Date</div>
+        <div className='col-3 col-sm-2 text-end'>Amount</div>
+        <div className='col-2 col-sm-1'>View </div>
       </div>
 
       {expiredPayments &&
         expiredPayments.slice(0, 10).map((payment) => (
           <div key={payment.payment_id} className='row mb-1'>
-            <div className='col-2 payment-id'>
+            <div className='col-2 d-none d-sm-block payment-id'>
               {moment().year()} - {payment.payment_id}
             </div>
-            <div className='col-3 payment-user'>
+            <div className='col-7 col-sm-3  payment-user'>
               {payment.user_fname} {payment.user_lname}
               {payment.note && (
                 <span>
@@ -54,18 +54,18 @@ const ExpiredPayments = () => {
               )}
             </div>
 
-            <div className='col-4 exp-date'>
+            <div className='col-4 d-none d-sm-block exp-date'>
               {' '}
               {moment(payment.exp_date).format('DD. MM. yyyy. hh:mm')}
               {moment() > moment(payment.exp_date) && (
-                <span className='badge text-bg-danger'>Expired</span>
+                <span className='badge text-bg-danger'>Exp</span>
               )}
             </div>
-            <div className='col-2 text-end'>
+            <div className='col-3 col-sm-2 text-end'>
               {' '}
               {CurrencyFormat(payment.payment_amount)}
             </div>
-            <div className='col-1'>
+            <div className='col-2 col-sm-1'>
               {' '}
               <Link
                 className='btn btn-primary btn-sm tooltip-custom'

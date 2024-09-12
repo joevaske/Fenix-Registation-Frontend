@@ -57,6 +57,9 @@
   color: white;
   padding: 10px 15px;
 }
+.main-menu nav ul li.user-name a {
+  padding: 0;
+}
 .main-menu nav ul li ul li {
   text-decoration: none;
   color: white;
@@ -89,6 +92,7 @@
 }
 .main-menu .menu-user {
   display: flex;
+  align-items: center;
 }
 .main-menu .user span {
   display: block;

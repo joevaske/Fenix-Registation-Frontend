@@ -40,10 +40,10 @@ const Dashboard = () => {
         <div className='col-12 col-md-8'>{/*  <LatestPayments /> */}</div>
       </div>
       <div className='row'>
-        <div className='col-12 col-md-6'>
+        <div className='col-12 col-xs-6'>
           <LatestPayments />
         </div>
-        <div className='col-12 col-md-6'>
+        <div className='col-12 col-xs-6'>
           <ExpiredPayments />
         </div>
       </div>

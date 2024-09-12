@@ -51,9 +51,9 @@
   gap: 10px;
   font-size: 14px;
 }
-.total-users-footer {
+.inactive-users-footer {
   text-align: right;
-  padding: 20px 10px 0px 10px;
+  padding: 20px 0px 0px 0px;
 }
 
 @media screen and (max-width: 768px) {
@@ -63,10 +63,9 @@
   .inactive-user-body-info-contact {
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
+    gap: 1px;
   }
-  .inactive-user-footer-left {
-    flex-direction: column;
-    align-items: flex-start;
+  .inactive-user-body-info-contact p {
+    margin-bottom: 5px;
   }
 }

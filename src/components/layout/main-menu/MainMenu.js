@@ -9,7 +9,6 @@ import './MainMenu.css';
 
 import { getPosts } from '../../../redux/features/posts/postsSlice';
 
-import Button from 'react-bootstrap/Button';
 import { BsInfoCircle } from 'react-icons/bs';
 
 const MainMenu = () => {
@@ -42,6 +41,7 @@ const MainMenu = () => {
                     <Dropdown.Toggle
                       id='dropdown-button-dark-example1'
                       variant='secondary'
+                      size='sm'
                     >
                       <BsInfoCircle className='mb-1' />
                     </Dropdown.Toggle>
@@ -52,16 +52,17 @@ const MainMenu = () => {
                       </Dropdown.Item>
                       <Dropdown.Divider />
 
-                      {posts
-                        .filter((post) => post.post_to === user.user_id)
-                        .map((post) => (
-                          <Dropdown.Item
-                            key={post.post_id}
-                            href={`/show-post/${post.post_id}`}
-                          >
-                            {post.post_title}
-                          </Dropdown.Item>
-                        ))}
+                      {posts &&
+                        posts
+                          .filter((post) => post.post_to === user.user_id)
+                          .map((post) => (
+                            <Dropdown.Item
+                              key={post.post_id}
+                              href={`/show-post/${post.post_id}`}
+                            >
+                              {post.post_title}
+                            </Dropdown.Item>
+                          ))}
                       <Dropdown.Item href='#/action-4'>Message 1</Dropdown.Item>
                       <Dropdown.Item href='#/action-4'>Message 2</Dropdown.Item>
                     </Dropdown.Menu>
@@ -82,21 +83,25 @@ const MainMenu = () => {
             {user && (
               <>
                 <li className='user-name'>
-                  <span>{user.user_fname}</span>
-                  <img
-                    className='users-list-image-sm'
-                    src={
-                      user.user_image === ''
-                        ? placeholder
-                        : process.env.PUBLIC_URL + '/upload/' + user.user_image
-                    }
-                    alt={`${user.user_fname}-${user.user_lname}`}
-                  />
+                  <Link to={`/user-profile/${user.user_id}`}>
+                    <span>{user.user_fname} </span>
+                    <img
+                      className='users-list-image-sm'
+                      src={
+                        user.user_image === ''
+                          ? placeholder
+                          : process.env.PUBLIC_URL +
+                            '/upload/' +
+                            user.user_image
+                      }
+                      alt={`${user.user_fname}-${user.user_lname}`}
+                    />
+                  </Link>
                 </li>
                 <li>
                   <button
                     type='button'
-                    className='btn btn-dark user-logout'
+                    className='btn btn-sm btn-dark user-logout'
                     onClick={onLogout}
                   >
                     <pre>Logout</pre>

@@ -1,5 +1,5 @@
 /* import { Routes, Route } from 'react-router-dom'; */
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -13,9 +13,7 @@ import ShowUsers from './components/users/show-users/ShowUsers';
 import CreatePayment from './components/payments/create-payment/CreatePayment';
 import ShowPayments from './components/payments/show-payments/ShowPayments';
 import UpdatePayment from './components/payments/update-payment/UpdatePayment';
-import SideMenu from './components/layout/side-menu/SideMenu';
 import ProfileUser from './components/users/profile-user/ProfileUser';
-import PaymentsUser from './components/users/payments-user/PaymentsUser';
 import SideMenuBs from './components/layout/side-menu-bs/SideMenuBs';
 import UserPayments from './components/users/user-payments/UserPayments';
 import PaymentsByUser from './components/payments-by-user/PaymentsByUser';

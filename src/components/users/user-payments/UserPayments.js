@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUserById,
@@ -28,7 +28,7 @@ const UserPayments = () => {
   useEffect(() => {
     dispatch(getPeymentsUser());
     dispatch(fetchUsers());
-  }, []);
+  }, [dispatch]);
 
   const userPayments = paymentsUser.filter(
     (payment) => payment.user_id === Number(id)

@@ -15,6 +15,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.expired-payments .exp-date span {
+  margin-left: 5px;
+}
 .expired-payments .payment-id {
   font-size: 14px;
   font-weight: 400;

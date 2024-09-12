@@ -38,7 +38,7 @@ const SideMenuBs = () => {
       <aside id='sidebar' className={toggleMenu ? 'collapsed' : ''}>
         <div className='h-100'>
           <div className='sidebar-logo'>
-            <a href='#'>FReg</a>
+            <Link to='/'>FReg</Link>
           </div>
           <ul className='sidebar-nav'>
             <li className='sidebar-header'>Users</li>

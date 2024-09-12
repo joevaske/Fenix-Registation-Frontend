@@ -78,7 +78,7 @@ const LatestUsers = () => {
           </p> */
         ))}
       </div>
-      <div className='total-users-footer'>
+      <div className='latest-users-footer'>
         <Link className='btn btn-primary btn-sm' to='/users'>
           Show all users
         </Link>

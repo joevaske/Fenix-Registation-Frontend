@@ -7,12 +7,12 @@ const DashboardLinksUsers = () => {
       <h4 className='mb-3'>Users</h4>
       <div className='dashboard-links-users-container'>
         <div className='dashboard-links-users-link'>
-          <Link className='btn btn-primary btn-lg' to='/create-user'>
+          <Link className='btn btn-primary btn-md' to='/create-user'>
             New User
           </Link>
         </div>
         <div className='dashboard-links-users-link'>
-          <Link className='btn btn-secondary btn-lg' to='/users'>
+          <Link className='btn btn-secondary btn-md' to='/users'>
             Show Users
           </Link>
         </div>

@@ -6,13 +6,16 @@
 }
 .latest-payments-header h6 {
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
 }
 .latest-payments .exp-date {
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.latest-payments .exp-date span {
+  margin-left: 5px;
 }
 .latest-payments .payment-id {
   font-size: 14px;

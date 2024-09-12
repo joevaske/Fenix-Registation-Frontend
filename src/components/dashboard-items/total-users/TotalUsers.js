@@ -51,7 +51,9 @@ const TotalUsers = () => {
         </div>
       </div>
       <div className='total-users-footer'>
-        <p className='comparation-explanation'>Users in {currentMonthName}</p>
+        <p className='total-users-comparation-explanation'>
+          Users in {currentMonthName}
+        </p>
       </div>
     </div>
   );

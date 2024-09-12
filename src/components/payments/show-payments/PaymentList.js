@@ -191,7 +191,8 @@ const PaymentList = ({ payments, getPaymentUser, onPaymentDelete }) => {
             <div className='row payment' key={payment.payment_id}>
               <div className='col-12 col-md-1  p-2 text-start payment-id'>
                 {' '}
-                {moment().year()} - {payment.payment_id}
+                {moment(payment.payment_date).format('YYYY')} -{' '}
+                {payment.payment_id}
               </div>
               <div className='col-12 col-md-2  p-2 text-start payment-user'>
                 {' '}

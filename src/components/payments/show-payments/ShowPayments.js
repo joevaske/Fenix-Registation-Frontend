@@ -51,11 +51,23 @@ const ShowPayments = () => {
   var currMonthName = moment().format('MMMM');
   var prevMonthName = moment().subtract(1, 'month').format('MMMM');
 
+  /*   if (currMonthName === 'January') {
+    const lastMonthPayments = paymentsUser.filter(
+      (payment) =>
+        (moment(payment.payment_date).format('MMMM') === prevMonthName) &
+        (moment(payment.payment_date).format('YYYY') === moment().year() - 1)
+    );
+  }  */
   const lastMonthPayments = paymentsUser.filter(
-    (payment) => moment(payment.payment_date).format('MMMM') === prevMonthName
+    (payment) =>
+      (moment(payment.payment_date).format('MMMM') === prevMonthName) &
+      (moment(payment.payment_date).format('YYYY') === moment().year())
   );
+
   const currentMonthPayments = paymentsUser.filter(
-    (payment) => moment(payment.payment_date).format('MMMM') === currMonthName
+    (payment) =>
+      (moment(payment.payment_date).format('MMMM') === currMonthName) &
+      (moment(payment.payment_date).format('YYYY') === moment().year())
   );
   const [searchResultsLastMonth, setSearchResultsLastMonth] =
     useState(lastMonthPayments);
